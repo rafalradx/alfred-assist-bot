@@ -2,7 +2,7 @@ from collections import UserDict
 from dataclasses import dataclass
 import pickle
 from pathlib import Path
-from record import Record, Name, Phone, Email, Birthday
+from record import Record, Name, Phone, Email, Birthday, Address
 
 
 class Contact_not_found(Exception):
@@ -120,7 +120,7 @@ class AddressBook(UserDict):
             print("{:^120}".format("-" * 120))
             print(
                 "{:^30}|{:^30}|{:^30}|{:^30}".format(
-                    "Name", "Phone", "Email", "Birthday"
+                    "Name", "Phone", "Email", "Birthday", "Address"
                 )
             )
             print("{:^120}".format("-" * 120))
@@ -139,7 +139,9 @@ class AddressBook(UserDict):
     def func_search(self, keyword):
         print("{:^120}".format("-" * 120))
         print(
-            "{:^30}|{:^30}|{:^30}|{:^30}".format("Name", "Phone", "Email", "Birthday")
+            "{:^30}|{:^30}|{:^30}|{:^30}".format(
+                "Name", "Phone", "Email", "Birthday", "Address"
+            )
         )
         print("{:^120}".format("-" * 120))
         contact_counter = 0
@@ -171,7 +173,7 @@ class AddressBook(UserDict):
             print("{:^120}".format("-" * 120))
             print(
                 "{:^30}|{:^30}|{:^30}|{:^30}".format(
-                    "Name", "Phone", "Email", "Birthday"
+                    "Name", "Phone", "Email", "Birthday", "Address"
                 )
             )
             print("{:^120}".format("-" * 120))
@@ -197,7 +199,7 @@ class AddressBook(UserDict):
             print("{:^120}".format("-" * 120))
             print(
                 "{:^30}|{:^30}|{:^30}|{:^30}".format(
-                    "Name", "Phone", "Email", "Birthday"
+                    "Name", "Phone", "Email", "Birthday", "Address"
                 )
             )
             print("{:^120}".format("-" * 120))
@@ -225,22 +227,27 @@ class AddressBook(UserDict):
                 break
 
     @input_error
-    def func_add(self, name, phone=None, email=None, birthday=None):
+    def func_add(self, name, phone=None, address=None, email=None, birthday=None):
         if len(name) == 0:
             raise KeyError
         else:
             new_contact = Record(
-                Name(name), Phone(phone), Email(email), Birthday(birthday)
+                Name(name),
+                Phone(phone),
+                Email(email),
+                Birthday(birthday),
+                Address(address),
             )
             self.contacts[new_contact.name.value] = [
                 new_contact.phone.value,
                 new_contact.email.value,
                 new_contact.birthday.value,
+                new_contact.address.value,
             ]
             print("{:^120}".format("-" * 120))
             print(
                 "{:^30}|{:^30}|{:^30}|{:^30}".format(
-                    "Name", "Phone", "Email", "Birthday"
+                    "Name", "Phone", "Email", "Birthday", "Address"
                 )
             )
             print("{:^120}".format("-" * 120))
@@ -250,6 +257,7 @@ class AddressBook(UserDict):
                     self.check_value(self.contacts[name][0]),
                     self.check_value(self.contacts[name][1]),
                     self.check_value(self.contacts[name][2]),
+                    self.check_value(self.contacts[name][3]),
                 )
             )
 
@@ -261,6 +269,7 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.days_to_birthday(contact.name, contact.birthday)
         else:
@@ -274,6 +283,7 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.edit_phone(Phone(new_phone)._value)
             self.contacts[contact.name][0] = contact.phone
@@ -288,6 +298,7 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.edit_email(new_email)
             self.contacts[contact.name][1] = contact.email
@@ -302,6 +313,7 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.edit_birthday(Birthday(new_birthday)._value)
             self.contacts[contact.name][2] = contact.birthday
@@ -324,6 +336,7 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.delete_phone()
             self.contacts[contact.name][0] = contact.phone
@@ -338,6 +351,7 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.delete_email()
             self.contacts[contact.name][1] = contact.email
@@ -352,9 +366,40 @@ class AddressBook(UserDict):
                 self.contacts[name][0],
                 self.contacts[name][1],
                 self.contacts[name][2],
+                self.contacts[name][3],
             )
             contact.delete_birthday()
             self.contacts[contact.name][2] = contact.birthday
+        else:
+            raise Contact_not_found
+
+    @input_error
+    def func_edit_address(self, name, new_address):
+        if name in self.contacts:
+            contact = Record(
+                name,
+                self.contacts[name][0],
+                self.contacts[name][1],
+                self.contacts[name][2],
+                self.contacts[name][3],
+            )
+            contact.edit_address(Address(new_address)._value)
+            self.contacts[contact.name][3] = contact.address  # Aktualizacja adresu
+        else:
+            raise Contact_not_found
+
+    @input_error
+    def func_delete_address(self, name):
+        if name in self.contacts:
+            contact = Record(
+                name,
+                self.contacts[name][0],
+                self.contacts[name][1],
+                self.contacts[name][2],
+                self.contacts[name][3],
+            )
+            contact.delete_address()
+            self.contacts[contact.name][3] = contact.address  # Usunięcie adresu
         else:
             raise Contact_not_found
 

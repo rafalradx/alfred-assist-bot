@@ -76,9 +76,29 @@ class Birthday(Field):
 
 
 @dataclass
+class Address(Field):
+    @property
+    def value(self):
+        return self.value
+
+    @value.setter
+    def value(self, new_value):
+        if new_value is not None and not self.validate_address(new_value):
+            raise ValueError("Invalid address format")
+
+        self._value = new_value
+
+    def validate_address(self, value):
+        # Zakładam, że format adresu powinien być (Miasto, kod pocztowy, ulica, numer domu)
+        address_regex = r"\(.+\, \d{2}-\d{3}\, .+\, .+\)"
+        return bool(re.match(address_regex, value))
+
+
+@dataclass
 class Record:
     name: Name
     phone: Phone
+    address: Address
     email: Email
     birthday: Birthday
 
@@ -126,3 +146,11 @@ class Record:
                 print(f"Days until {contact_name}'s birthday: {to_birthday}")
         else:
             print(f"{contact_name} has no birthday entered in the address book.")
+
+    def edit_address(self, new_address):
+        self.address = new_address
+        print(f"Address updated for {self.name}")
+
+    def delete_address(self):
+        self.address = None
+        print(f"Address deleted for {self.name}")
