@@ -37,10 +37,12 @@ After entering the command, you will be asked for additional information if need
         "edit phone": addressbook.func_edit_phone,
         "edit email": addressbook.func_edit_email,
         "edit birthday": addressbook.func_edit_birthday,
+        "edit address": addressbook.func_edit_address,
         "delete contact": addressbook.func_delete_contact,
         "delete phone": addressbook.func_delete_phone,
         "delete email": addressbook.func_delete_email,
         "delete birthday": addressbook.func_delete_birthday,
+        "delete address": addressbook.func_delete_address,
         "good bye": addressbook.func_exit,
         "close": addressbook.func_exit,
         "exit": addressbook.func_exit,
@@ -54,8 +56,9 @@ After entering the command, you will be asked for additional information if need
                 name = input("Enter name: ")
                 phone = input("Enter phone: ")
                 email = input("Enter email: ")
+                address = input("Enter address:")
                 birthday = input("Enter birthday: ")
-                OPERATIONS_MAP[listen](name, phone, email, birthday)
+                OPERATIONS_MAP[listen](name, phone, email, birthday, address)
             elif listen in [
                 "find",
                 "birthday",
@@ -63,6 +66,7 @@ After entering the command, you will be asked for additional information if need
                 "delete phone",
                 "delete email",
                 "delete birthday",
+                "delete address",
             ]:
                 name = input("Enter name: ")
                 OPERATIONS_MAP[listen](name)
