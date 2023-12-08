@@ -93,6 +93,25 @@ class Address(Field):
         address_regex = r"\(.+\, \d{2}-\d{3}\, .+\, .+\)"
         return bool(re.match(address_regex, value))
 
+@dataclass
+class Tag(Field):
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        self._value = new_value
+
+@dataclass
+class Notes(Field):
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        self._value = new_value
 
 @dataclass
 class Record:
@@ -101,6 +120,8 @@ class Record:
     address: Address
     email: Email
     birthday: Birthday
+    tag: Tag
+    notes: Notes
 
     def edit_phone(self, new_phone):
         self.phone = new_phone
