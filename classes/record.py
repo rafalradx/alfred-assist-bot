@@ -52,9 +52,9 @@ class Email(Field):
         if new_value is not None and not self.validate_email(new_value):
             raise ValueError("Invalid email address format")
         self._value = new_value
-    
+
     def validate_email(self, value):
-        email_regex = r'[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
+        email_regex = r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}"
         return bool(re.match(email_regex, value))
 
 
@@ -95,17 +95,41 @@ class Address(Field):
         self._value = new_value
 
     def validate_address(self, value):
-        address_parts = [part.strip() for part in value.split(',')]
+        address_parts = [part.strip() for part in value.split(",")]
         return len(address_parts) == 4
+
+
+@dataclass
+class Tag(Field):
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        self._value = new_value
+
+
+@dataclass
+class Notes(Field):
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        self._value = new_value
 
 
 @dataclass
 class Record:
     name: Name
-    phone: Phone    
+    phone: Phone
     email: Email
     birthday: Birthday
     address: Address
+    tag: Tag
+    notes: Notes
 
     def edit_phone(self, new_phone):
         self.phone = new_phone

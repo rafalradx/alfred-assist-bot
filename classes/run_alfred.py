@@ -1,6 +1,31 @@
 from addressbook import AddressBook
 
 
+def clossest_match(querry: str, commands):
+    """filters commands if they start with querry,
+    if no command found querry is shortened by one char from the end
+    and function tries again (recursively)"""
+    if len(querry) == 0:
+        return []
+    matched_commands = list(filter(lambda x: x.startswith(querry), commands))
+    if len(matched_commands) > 0:
+        return matched_commands
+    else:
+        return clossest_match(querry[:-1], commands)
+
+
+def command_hint(user_str: str, commands) -> str:
+    """return string with hint for user describing
+    closest match to the available bot commands"""
+    user_str = user_str.strip()
+    hint = ""
+    hits = clossest_match(user_str, commands)
+
+    if len(hits) > 0:
+        hint = f"Did you mean?: {', '.join(hits)}"
+    return hint
+
+
 def main():
     print(
         """
@@ -14,6 +39,7 @@ Choose one of the commands:
     - show - to display N contacts from Address Book,
     - add - to add new contact to Address Book,
     - birthday - to display days to birthday of the user,
+    - upcoming birthdays - to check upcoming birthdays from your conatct in Address Book
     - edit phone - to change phone of the user,
     - edit email - to change email of the user,
     - edit birthday - to change birthday of the user,
@@ -36,6 +62,7 @@ After entering the command, you will be asked for additional information if need
         "show": addressbook.func_show,
         "add": addressbook.func_add,
         "birthday": addressbook.func_birthday,
+        "upcoming birthdays": addressbook.func_upcoming_birthdays,
         "edit phone": addressbook.func_edit_phone,
         "edit email": addressbook.func_edit_email,
         "edit birthday": addressbook.func_edit_birthday,
@@ -57,10 +84,14 @@ After entering the command, you will be asked for additional information if need
             if listen == "add":
                 name = input("Enter name: ")
                 phone = input("Enter phone: ")
-                email = input("Enter email: ")                
+                email = input("Enter email: ")
                 birthday = input("Enter birthday: ")
-                address = input("Enter address: ")
-                OPERATIONS_MAP[listen](name, phone, email, birthday, address)
+                address = input("Enter address:")
+                tag = input("Enter tag: ")
+                notes = input("Enter your notes: ")
+                OPERATIONS_MAP[listen](
+                    name, phone, email, birthday, address, tag, notes
+                )
             elif listen in [
                 "find",
                 "birthday",
@@ -72,6 +103,11 @@ After entering the command, you will be asked for additional information if need
             ]:
                 name = input("Enter name: ")
                 OPERATIONS_MAP[listen](name)
+            elif listen == "upcoming birthdays":
+                keyword = input(
+                    "Which time frame from today would you like to check? Please input the number of days from now: "
+                )
+                OPERATIONS_MAP[listen](keyword)
             elif listen == "search":
                 keyword = input("Enter keyword: ")
                 OPERATIONS_MAP[listen](keyword)
@@ -96,7 +132,11 @@ After entering the command, you will be asked for additional information if need
             else:
                 OPERATIONS_MAP[listen.lower()]()
         else:
-            print("Invalid command.")
+            hint_for_user = command_hint(listen, OPERATIONS_MAP.keys())
+            if hint_for_user:  # not empty string
+                print(hint_for_user)
+            else:
+                print("Invalid command.")
 
 
 if __name__ == "__main__":
