@@ -227,7 +227,7 @@ class AddressBook(UserDict):
                 break
 
     @input_error
-    def func_add(self, name, phone=None, address=None, email=None, birthday=None):
+    def func_add(self, name, phone=None, email=None, birthday=None, address=None):
         if len(name) == 0:
             raise KeyError
         else:
@@ -244,15 +244,15 @@ class AddressBook(UserDict):
                 new_contact.birthday.value,
                 new_contact.address.value,
             ]
-            print("{:^120}".format("-" * 120))
+            print("{:^155}".format("-" * 155))
             print(
-                "{:^30}|{:^30}|{:^30}|{:^30}".format(
+                "{:^30}|{:^30}|{:^30}|{:^30}|{:^30}".format(
                     "Name", "Phone", "Email", "Birthday", "Address"
                 )
             )
-            print("{:^120}".format("-" * 120))
+            print("{:^155}".format("-" * 155))
             print(
-                "{:^30}|{:^30}|{:^30}|{:^30}".format(
+                "{:^30}|{:^30}|{:^30}|{:^30}|{:^30}".format(
                     name,
                     self.check_value(self.contacts[name][0]),
                     self.check_value(self.contacts[name][1]),
@@ -293,15 +293,16 @@ class AddressBook(UserDict):
     @input_error
     def func_edit_email(self, name, new_email):
         if name in self.contacts:
+            contact_data = self.contacts[name]
             contact = Record(
                 name,
-                self.contacts[name][0],
-                self.contacts[name][1],
-                self.contacts[name][2],
-                self.contacts[name][3],
+                contact_data[0] if len(contact_data) > 0 else None,
+                contact_data[1] if len(contact_data) > 1 else None,
+                contact_data[2] if len(contact_data) > 2 else None,
+                contact_data[3] if len(contact_data) > 3 else None,
             )
             contact.edit_email(new_email)
-            self.contacts[contact.name][1] = contact.email
+            self.contacts[name][1] = contact.email
         else:
             raise Contact_not_found
 

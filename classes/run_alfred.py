@@ -16,11 +16,13 @@ Choose one of the commands:
     - birthday - to display days to birthday of the user,
     - edit phone - to change phone of the user,
     - edit email - to change email of the user,
-    - edit birthday - to change birthday of the user,      
+    - edit birthday - to change birthday of the user,
+    - edit adress - to change adress of the user,      
     - delete contact - to remove contact from Address Book
     - delete phone - to delete phone of the user,
     - delete email - to delete email of the user,
     - delete birthday - to delete birthday of the user,
+    - delete adress - to delete adress of the user, 
     - good bye, close, exit or . - to say good bye and close the program.
 After entering the command, you will be asked for additional information if needed to complete the command."""
     )
@@ -55,9 +57,9 @@ After entering the command, you will be asked for additional information if need
             if listen == "add":
                 name = input("Enter name: ")
                 phone = input("Enter phone: ")
-                email = input("Enter email: ")
-                address = input("Enter address:")
+                email = input("Enter email: ")                
                 birthday = input("Enter birthday: ")
+                address = input("Enter address: ")
                 OPERATIONS_MAP[listen](name, phone, email, birthday, address)
             elif listen in [
                 "find",
