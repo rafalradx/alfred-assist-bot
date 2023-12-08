@@ -1,6 +1,31 @@
 from addressbook import AddressBook
 
 
+def clossest_match(querry: str, commands):
+    """filters commands if they start with querry,
+    if no command found querry is shortened by one char from the end
+    and function tries again (recursively)"""
+    if len(querry) == 0:
+        return []
+    matched_commands = list(filter(lambda x: x.startswith(querry), commands))
+    if len(matched_commands) > 0:
+        return matched_commands
+    else:
+        return clossest_match(querry[:-1], commands)
+
+
+def command_hint(user_str: str, commands) -> str:
+    """return string with hint for user describing
+    closest match to the available bot commands"""
+    user_str = user_str.strip()
+    hint = ""
+    hits = clossest_match(user_str, commands)
+
+    if len(hits) > 0:
+        hint = f"Did you mean?: {', '.join(hits)}"
+    return hint
+
+
 def main():
     print(
         """
@@ -94,7 +119,11 @@ After entering the command, you will be asked for additional information if need
             else:
                 OPERATIONS_MAP[listen.lower()]()
         else:
-            print("Invalid command.")
+            hint_for_user = command_hint(listen, OPERATIONS_MAP.keys())
+            if hint_for_user:  # not empty string
+                print(hint_for_user)
+            else:
+                print("Invalid command.")
 
 
 if __name__ == "__main__":
