@@ -6,7 +6,8 @@ setup(
     description='CLI Bot assistant. Package for adding data to'
                 'address book, read/update/delete it, adding notes etc.',
     url='https://github.com/rafalradx/alfred-assist-bot',
-    author1='Gotham Devs',
+    author='Gotham Devs', #czy podać imiona i nazwiska?
+    #czy dodać adres e-mail?
     readme="README.md",
     license="MIT",
     packages=find_namespace_packages(),
