@@ -1,5 +1,6 @@
 from collections import UserDict
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 import pickle
 from pathlib import Path
 from record import Record, Name, Phone, Email, Birthday, Address
@@ -186,6 +187,72 @@ class AddressBook(UserDict):
                         self.check_value(contact[2]),
                     )
                 )
+
+    @input_error
+    def func_upcoming_birthdays(self, days_str):
+        today = datetime.now()
+        formatted_date = today.strftime("%d %B %Y")
+        days = int(days_str)
+        last_day = today + timedelta(days=days)
+        formatted_last_day = last_day.strftime("%d %B %Y")
+        print(f"Checking period ({formatted_date} - {formatted_last_day}).")
+
+        birthdays_list = {}
+        today_birthday = {}
+
+        for name, user_info in self.contacts.items():
+            birthday_str = user_info[2]
+            phone = user_info[0]
+            email = user_info[1]
+            birthday = datetime.strptime(birthday_str, "%Y-%m-%d").date()
+
+            birthday_this_year = birthday.replace(year=today.year)
+            birthday_next_year = birthday.replace(year=today.year + 1)
+
+            day_of_week = birthday.strftime("%d %B (%A)")
+
+            if today.date() <= birthday_this_year <= last_day.date() or today.date() <= birthday_next_year <= last_day.date():
+                if day_of_week not in birthdays_list:
+                    birthdays_list[day_of_week] = []
+                birthdays_list[day_of_week].append((name, phone, email))
+            elif today.date() == birthday_this_year:
+                if day_of_week not in today_birthday:
+                    today_birthday[day_of_week] = []
+                today_birthday[day_of_week].append((name, phone, email))
+
+        if not any(birthdays_list.values()) and not any(today_birthday.values()):
+            print(f"None of your contacts have upcoming birthdays in this period.")
+        else:
+            print(
+                "   O O O O \n"
+                "  _|_|_|_|_\n"
+                " |         |\n",
+                "|         |\n",
+                "|_________|\n",
+            )
+        if any(today_birthday.values()):
+            print('Someone has birthday today, so wish "HAPPY BIRTHDAY" today to:')
+            print('{:^90}'.format("*"*90))
+            print('{:^30}|{:^30}|{:^30}'.format("Name", "Phone", "Email"))
+            print('{:^90}'.format("*"*90))
+            for day, users in sorted(today_birthday.items(), key=lambda x: x[0]):
+                for user_info in users:
+                    print("{:^30}|{:^30}|{:^30}".format(*user_info))
+                    print('*' * 90)
+        if any(birthdays_list.values()):
+            print('Send birthday wishes to your contact on the upcoming days:')
+            print('{:^120}'.format("-"*120))
+            print('{:^30}|{:^30}|{:^30}|{:^30}'.format(
+                "Birthday", "Name", "Phone", "Email"))
+            print('{:^120}'.format("-"*120))
+            for day, users in sorted(birthdays_list.items(), key=lambda x: x[0]):
+                for user_info in users:
+                    print(
+                        "{:^30}|{:^30}|{:^30}|{:^30}".format(
+                            day, *user_info
+                        )
+                    )
+                    print('-' * 120)
 
     @input_error
     def func_show(self, number_of_contacts):
@@ -384,7 +451,8 @@ class AddressBook(UserDict):
                 self.contacts[name][3],
             )
             contact.edit_address(Address(new_address)._value)
-            self.contacts[contact.name][3] = contact.address  # Aktualizacja adresu
+            # Aktualizacja adresu
+            self.contacts[contact.name][3] = contact.address
         else:
             raise Contact_not_found
 
@@ -399,7 +467,8 @@ class AddressBook(UserDict):
                 self.contacts[name][3],
             )
             contact.delete_address()
-            self.contacts[contact.name][3] = contact.address  # Usunięcie adresu
+            # Usunięcie adresu
+            self.contacts[contact.name][3] = contact.address
         else:
             raise Contact_not_found
 
