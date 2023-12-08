@@ -79,7 +79,7 @@ After entering the command, you will be asked for additional information if need
     }
     while True:
         listen_enterred = input("\nEnter your command here: ")
-        listen = listen_enterred.lower()
+        listen = listen_enterred.lower().strip()
         if listen in OPERATIONS_MAP:
             if listen == "add":
                 name = input("Enter name: ")
