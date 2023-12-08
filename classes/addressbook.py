@@ -2,7 +2,7 @@ from collections import UserDict
 from dataclasses import dataclass
 import pickle
 from pathlib import Path
-from record import Record, Name, Phone, Email, Birthday, Address
+from record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
 
 
 class Contact_not_found(Exception):
@@ -240,7 +240,6 @@ class AddressBook(UserDict):
                         self.check_value(contact[1]),
                         self.check_value(contact[2]),
                         self.check_value(contact[3]),
-                        self.check_value(contact[4]),
                     )
                 )
 
@@ -285,7 +284,7 @@ class AddressBook(UserDict):
                 break
 
     @input_error
-    def func_add(self, name, phone=None, address=None, email=None, birthday=None):
+    def func_add(self, name, phone=None, address=None, email=None, birthday=None, tag=None, notes=None):
         if len(name) == 0:
             raise KeyError
         else:
@@ -306,22 +305,20 @@ class AddressBook(UserDict):
                 new_contact.tag.value,
                 new_contact.notes.value
             ]
-            print("{:^120}".format("-" * 120))
+            print("{:^140}".format("-" * 140))
             print(
-                "{:^30}|{:^30}|{:^30}|{:^30}".format(
-                    "Name", "Phone", "Email", "Birthday", "Address", "Tag", "Notes"
+                "{:^30}|{:^20}|{:^30}|{:^20}|{:^40}".format(
+                    "Name", "Phone", "Email", "Birthday", "Address"
                 )
             )
-            print("{:^120}".format("-" * 120))
+            print("{:^140}".format("-" * 140))
             print(
-                "{:^30}|{:^30}|{:^30}|{:^30}".format(
+                "{:^30}|{:^20}|{:^30}|{:^20}|{:^40}".format(
                     name,
                     self.check_value(self.contacts[name][0]),
                     self.check_value(self.contacts[name][1]),
                     self.check_value(self.contacts[name][2]),
                     self.check_value(self.contacts[name][3]),
-                    self.check_value(self.contacts[name][4]),
-                    self.check_value(self.contacts[name][5]),
                 )
             )
 
