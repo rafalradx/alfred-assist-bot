@@ -39,6 +39,7 @@ Choose one of the commands:
     - show - to display N contacts from Address Book,
     - add - to add new contact to Address Book,
     - birthday - to display days to birthday of the user,
+    - upcoming birthdays - to check upcoming birthdays from your conatct in Address Book
     - edit phone - to change phone of the user,
     - edit email - to change email of the user,
     - edit birthday - to change birthday of the user,      
@@ -59,6 +60,7 @@ After entering the command, you will be asked for additional information if need
         "show": addressbook.func_show,
         "add": addressbook.func_add,
         "birthday": addressbook.func_birthday,
+        "upcoming birthdays": addressbook.func_upcoming_birthdays,
         "edit phone": addressbook.func_edit_phone,
         "edit email": addressbook.func_edit_email,
         "edit birthday": addressbook.func_edit_birthday,
@@ -97,6 +99,10 @@ After entering the command, you will be asked for additional information if need
             ]:
                 name = input("Enter name: ")
                 OPERATIONS_MAP[listen](name)
+            elif listen == "upcoming birthdays":
+                keyword = input(
+                    "Which time frame from today would you like to check? Please input the number of days from now: ")
+                OPERATIONS_MAP[listen](keyword)
             elif listen == "search":
                 keyword = input("Enter keyword: ")
                 OPERATIONS_MAP[listen](keyword)
@@ -113,7 +119,8 @@ After entering the command, you will be asked for additional information if need
                 new_birthday = input("Enter new birthday: ")
                 OPERATIONS_MAP[listen](name, new_birthday)
             elif listen == "show":
-                number_of_contacts = int(input("Enter number of contacts to display: "))
+                number_of_contacts = int(
+                    input("Enter number of contacts to display: "))
                 OPERATIONS_MAP[listen](number_of_contacts)
             elif listen in ["good bye", "close", "exit", "."]:
                 addressbook.save_to_file()
