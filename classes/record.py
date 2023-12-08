@@ -49,7 +49,13 @@ class Email(Field):
 
     @value.setter
     def value(self, new_value):
+        if new_value is not None and not self.validate_email(new_value):
+            raise ValueError("Invalid email address format")
         self._value = new_value
+
+    def validate_email(self, value):
+        email_regex = r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}"
+        return bool(re.match(email_regex, value))
 
 
 @dataclass
@@ -79,7 +85,7 @@ class Birthday(Field):
 class Address(Field):
     @property
     def value(self):
-        return self.value
+        return self._value
 
     @value.setter
     def value(self, new_value):
@@ -89,9 +95,9 @@ class Address(Field):
         self._value = new_value
 
     def validate_address(self, value):
-        # Zakładam, że format adresu powinien być (Miasto, kod pocztowy, ulica, numer domu)
-        address_regex = r"\(.+\, \d{2}-\d{3}\, .+\, .+\)"
-        return bool(re.match(address_regex, value))
+        address_parts = [part.strip() for part in value.split(",")]
+        return len(address_parts) == 4
+
 
 @dataclass
 class Tag(Field):
@@ -103,6 +109,7 @@ class Tag(Field):
     def value(self, new_value):
         self._value = new_value
 
+
 @dataclass
 class Notes(Field):
     @property
@@ -113,13 +120,14 @@ class Notes(Field):
     def value(self, new_value):
         self._value = new_value
 
+
 @dataclass
 class Record:
     name: Name
     phone: Phone
-    address: Address
     email: Email
     birthday: Birthday
+    address: Address
     tag: Tag
     notes: Notes
 

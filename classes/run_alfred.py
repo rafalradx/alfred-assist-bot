@@ -42,11 +42,13 @@ Choose one of the commands:
     - upcoming birthdays - to check upcoming birthdays from your conatct in Address Book
     - edit phone - to change phone of the user,
     - edit email - to change email of the user,
-    - edit birthday - to change birthday of the user,      
+    - edit birthday - to change birthday of the user,
+    - edit adress - to change adress of the user,      
     - delete contact - to remove contact from Address Book
     - delete phone - to delete phone of the user,
     - delete email - to delete email of the user,
     - delete birthday - to delete birthday of the user,
+    - delete adress - to delete adress of the user, 
     - good bye, close, exit or . - to say good bye and close the program.
 After entering the command, you will be asked for additional information if needed to complete the command."""
     )
@@ -85,9 +87,11 @@ After entering the command, you will be asked for additional information if need
                 email = input("Enter email: ")
                 birthday = input("Enter birthday: ")
                 address = input("Enter address:")
-                tag = input("Enter tag: ") 
+                tag = input("Enter tag: ")
                 notes = input("Enter your notes: ")
-                OPERATIONS_MAP[listen](name, phone, email, birthday, address, tag, notes)
+                OPERATIONS_MAP[listen](
+                    name, phone, email, birthday, address, tag, notes
+                )
             elif listen in [
                 "find",
                 "birthday",
@@ -101,7 +105,8 @@ After entering the command, you will be asked for additional information if need
                 OPERATIONS_MAP[listen](name)
             elif listen == "upcoming birthdays":
                 keyword = input(
-                    "Which time frame from today would you like to check? Please input the number of days from now: ")
+                    "Which time frame from today would you like to check? Please input the number of days from now: "
+                )
                 OPERATIONS_MAP[listen](keyword)
             elif listen == "search":
                 keyword = input("Enter keyword: ")
@@ -119,8 +124,7 @@ After entering the command, you will be asked for additional information if need
                 new_birthday = input("Enter new birthday: ")
                 OPERATIONS_MAP[listen](name, new_birthday)
             elif listen == "show":
-                number_of_contacts = int(
-                    input("Enter number of contacts to display: "))
+                number_of_contacts = int(input("Enter number of contacts to display: "))
                 OPERATIONS_MAP[listen](number_of_contacts)
             elif listen in ["good bye", "close", "exit", "."]:
                 addressbook.save_to_file()

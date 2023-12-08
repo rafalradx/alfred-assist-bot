@@ -40,13 +40,13 @@ class AddressBook(UserDict):
         if self.path.is_file() == False:
             self.contacts = {
                 "Anna Nowak": [
-                    "600 123 456", 
-                    "anowak@email.com", 
+                    "600 123 456",
+                    "anowak@email.com",
                     "1985-10-20",
                     "",
                     "",
                     "",
-                    ],
+                ],
                 "Piotr Wiśniewski": [
                     "512 987 654",
                     "pwiśniewski@email.com",
@@ -72,21 +72,21 @@ class AddressBook(UserDict):
                     "",
                 ],
                 "Aleksandra Wójcik": [
-                    "510 333 444", 
-                    "awójcik@email.com", 
+                    "510 333 444",
+                    "awójcik@email.com",
                     "1983-12-04",
                     "",
                     "",
                     "",
-                    ],
+                ],
                 "Michał Kamiński": [
-                    "730 444 555", 
-                    "mkamiński@email.com", 
+                    "730 444 555",
+                    "mkamiński@email.com",
                     "1997-09-18",
                     "",
                     "",
                     "",
-                    ],
+                ],
                 "Karolina Jankowska": [
                     "602 555 666",
                     "kjankowska@email.com",
@@ -96,13 +96,13 @@ class AddressBook(UserDict):
                     "",
                 ],
                 "Tomasz Zając": [
-                    "516 666 777", 
-                    "tzając@email.com", 
+                    "516 666 777",
+                    "tzając@email.com",
                     "1980-04-09",
                     "",
                     "",
                     "",
-                    ],
+                ],
                 "Natalia Szymańska": [
                     "660 777 888",
                     "nszymańska@email.com",
@@ -202,7 +202,7 @@ class AddressBook(UserDict):
                 or keyword in value[0].replace(" ", "")
                 or keyword.lower() in value[1].lower()
                 or keyword in value[2]
-                or keyword.lower() in value[3].lower() 
+                or keyword.lower() in value[3].lower()
                 or keyword.lower() in value[4].lower()
                 or keyword.lower() in value[5].lower()
             ):
@@ -267,7 +267,10 @@ class AddressBook(UserDict):
 
             day_of_week = birthday.strftime("%d %B (%A)")
 
-            if today.date() <= birthday_this_year <= last_day.date() or today.date() <= birthday_next_year <= last_day.date():
+            if (
+                today.date() <= birthday_this_year <= last_day.date()
+                or today.date() <= birthday_next_year <= last_day.date()
+            ):
                 if day_of_week not in birthdays_list:
                     birthdays_list[day_of_week] = []
                 birthdays_list[day_of_week].append((name, phone, email))
@@ -280,35 +283,32 @@ class AddressBook(UserDict):
             print(f"None of your contacts have upcoming birthdays in this period.")
         else:
             print(
-                "   O O O O \n"
-                "  _|_|_|_|_\n"
-                " |         |\n",
+                "   O O O O \n" "  _|_|_|_|_\n" " |         |\n",
                 "|         |\n",
                 "|_________|\n",
             )
         if any(today_birthday.values()):
             print('Someone has birthday today, so wish "HAPPY BIRTHDAY" today to:')
-            print('{:^90}'.format("*"*90))
-            print('{:^30}|{:^30}|{:^30}'.format("Name", "Phone", "Email"))
-            print('{:^90}'.format("*"*90))
+            print("{:^90}".format("*" * 90))
+            print("{:^30}|{:^30}|{:^30}".format("Name", "Phone", "Email"))
+            print("{:^90}".format("*" * 90))
             for day, users in sorted(today_birthday.items(), key=lambda x: x[0]):
                 for user_info in users:
                     print("{:^30}|{:^30}|{:^30}".format(*user_info))
-                    print('*' * 90)
+                    print("*" * 90)
         if any(birthdays_list.values()):
-            print('Send birthday wishes to your contact on the upcoming days:')
-            print('{:^120}'.format("-"*120))
-            print('{:^30}|{:^30}|{:^30}|{:^30}'.format(
-                "Birthday", "Name", "Phone", "Email"))
-            print('{:^120}'.format("-"*120))
+            print("Send birthday wishes to your contact on the upcoming days:")
+            print("{:^120}".format("-" * 120))
+            print(
+                "{:^30}|{:^30}|{:^30}|{:^30}".format(
+                    "Birthday", "Name", "Phone", "Email"
+                )
+            )
+            print("{:^120}".format("-" * 120))
             for day, users in sorted(birthdays_list.items(), key=lambda x: x[0]):
                 for user_info in users:
-                    print(
-                        "{:^30}|{:^30}|{:^30}|{:^30}".format(
-                            day, *user_info
-                        )
-                    )
-                    print('-' * 120)
+                    print("{:^30}|{:^30}|{:^30}|{:^30}".format(day, *user_info))
+                    print("-" * 120)
 
     @input_error
     def func_show(self, number_of_contacts):
@@ -351,7 +351,16 @@ class AddressBook(UserDict):
                 break
 
     @input_error
-    def func_add(self, name, phone=None, address=None, email=None, birthday=None, tag=None, notes=None):
+    def func_add(
+        self,
+        name,
+        phone=None,
+        address=None,
+        email=None,
+        birthday=None,
+        tag=None,
+        notes=None,
+    ):
         if len(name) == 0:
             raise KeyError
         else:
@@ -362,7 +371,7 @@ class AddressBook(UserDict):
                 Birthday(birthday),
                 Address(address),
                 Tag(tag),
-                Notes(notes)
+                Notes(notes),
             )
             self.contacts[new_contact.name.value] = [
                 new_contact.phone.value,
@@ -370,7 +379,7 @@ class AddressBook(UserDict):
                 new_contact.birthday.value,
                 new_contact.address.value,
                 new_contact.tag.value,
-                new_contact.notes.value
+                new_contact.notes.value,
             ]
             print("{:^140}".format("-" * 140))
             print(
@@ -425,17 +434,16 @@ class AddressBook(UserDict):
     @input_error
     def func_edit_email(self, name, new_email):
         if name in self.contacts:
+            contact_data = self.contacts[name]
             contact = Record(
                 name,
-                self.contacts[name][0],
-                self.contacts[name][1],
-                self.contacts[name][2],
-                self.contacts[name][3],
-                self.contacts[name][4],
-                self.contacts[name][5],
+                contact_data[0] if len(contact_data) > 0 else None,
+                contact_data[1] if len(contact_data) > 1 else None,
+                contact_data[2] if len(contact_data) > 2 else None,
+                contact_data[3] if len(contact_data) > 3 else None,
             )
             contact.edit_email(new_email)
-            self.contacts[contact.name][1] = contact.email
+            self.contacts[name][1] = contact.email
         else:
             raise Contact_not_found
 
