@@ -56,9 +56,11 @@ After entering the command, you will be asked for additional information if need
                 name = input("Enter name: ")
                 phone = input("Enter phone: ")
                 email = input("Enter email: ")
-                address = input("Enter address:")
                 birthday = input("Enter birthday: ")
-                OPERATIONS_MAP[listen](name, phone, email, birthday, address)
+                address = input("Enter address:")
+                tag = input("Enter tag: ") 
+                notes = input("Enter your notes: ")
+                OPERATIONS_MAP[listen](name, phone, email, birthday, address, tag, notes)
             elif listen in [
                 "find",
                 "birthday",
