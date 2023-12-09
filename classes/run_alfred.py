@@ -67,11 +67,15 @@ After entering the command, you will be asked for additional information if need
         "edit email": addressbook.func_edit_email,
         "edit birthday": addressbook.func_edit_birthday,
         "edit address": addressbook.func_edit_address,
+        "edit tag": addressbook.func_edit_tag,
+        "edit notes": addressbook.func_edit_notes,
         "delete contact": addressbook.func_delete_contact,
         "delete phone": addressbook.func_delete_phone,
         "delete email": addressbook.func_delete_email,
         "delete birthday": addressbook.func_delete_birthday,
         "delete address": addressbook.func_delete_address,
+        "delete tag": addressbook.func_delete_tag,
+        "delete notes": addressbook.func_delete_notes,
         "good bye": addressbook.func_exit,
         "close": addressbook.func_exit,
         "exit": addressbook.func_exit,
@@ -100,6 +104,8 @@ After entering the command, you will be asked for additional information if need
                 "delete email",
                 "delete birthday",
                 "delete address",
+                "delete tag",
+                "delete notes",
             ]:
                 name = input("Enter name: ")
                 OPERATIONS_MAP[listen](name)
@@ -123,8 +129,17 @@ After entering the command, you will be asked for additional information if need
                 name = input("Enter name of the contact to edit birthday: ")
                 new_birthday = input("Enter new birthday: ")
                 OPERATIONS_MAP[listen](name, new_birthday)
+            elif listen == "edit tag":
+                name = input("Enter name of the contact to edit tag: ")
+                new_tag = input("Enter new tag: ")
+                OPERATIONS_MAP[listen](name, new_tag)
+            elif listen == "edit notes":
+                name = input("Enter name of the contact to edit notes:")
+                new_notes = input("Enter new notes:")
+                OPERATIONS_MAP[listen](name, new_notes)
             elif listen == "show":
-                number_of_contacts = int(input("Enter number of contacts to display: "))
+                number_of_contacts = int(
+                    input("Enter number of contacts to display: "))
                 OPERATIONS_MAP[listen](number_of_contacts)
             elif listen in ["good bye", "close", "exit", "."]:
                 addressbook.save_to_file()

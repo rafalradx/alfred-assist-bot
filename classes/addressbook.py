@@ -560,6 +560,86 @@ class AddressBook(UserDict):
             raise Contact_not_found
 
     @input_error
+    def func_edit_tag(self, name, new_tag):
+        if name in self.contacts:
+            contact = Record(
+                name,
+                self.contacts[name][0],
+                self.contacts[name][1],
+                self.contacts[name][2],
+                self.contacts[name][3],
+                self.contacts[name][4],
+                self.contacts[name][5],
+            )
+            print(f"Current tag of {name}:\n {self.contacts[name][4]}")
+            confirm = input(
+                f"If you still want to edit it, please write (y/n):")
+            if confirm == "y":
+                contact.edit_notes(Tag(new_tag)._value)
+                self.contacts[contact.name][4] = contact.tag
+            elif confirm == "n":
+                print("Note was not changed.")
+        else:
+            raise Contact_not_found
+
+    @input_error
+    def func_delete_tag(self, name):
+        if name in self.contacts:
+            contact = Record(
+                name,
+                self.contacts[name][0],
+                self.contacts[name][1],
+                self.contacts[name][2],
+                self.contacts[name][3],
+                self.contacts[name][4],
+                self.contacts[name][5],
+            )
+            contact.delete_tag()
+            self.contacts[contact.name][4] = contact.tag
+        else:
+            raise Contact_not_found
+
+    @input_error
+    def func_edit_notes(self, name, new_notes):
+        if name in self.contacts:
+            contact = Record(
+                name,
+                self.contacts[name][0],
+                self.contacts[name][1],
+                self.contacts[name][2],
+                self.contacts[name][3],
+                self.contacts[name][4],
+                self.contacts[name][5],
+            )
+            print(f"Current notes of {name}:\n {self.contacts[name][5]}")
+            confirm = input(
+                f"If you still want to edit it, please write (y/n):")
+            if confirm == "y":
+                contact.edit_notes(Notes(new_notes)._value)
+                self.contacts[contact.name][5] = contact.notes
+            elif confirm == "n":
+                print("Note was not changed.")
+        else:
+            raise Contact_not_found
+
+    @input_error
+    def func_delete_notes(self, name):
+        if name in self.contacts:
+            contact = Record(
+                name,
+                self.contacts[name][0],
+                self.contacts[name][1],
+                self.contacts[name][2],
+                self.contacts[name][3],
+                self.contacts[name][4],
+                self.contacts[name][5],
+            )
+            contact.delete_notes()
+            self.contacts[contact.name][5] = contact.notes
+        else:
+            raise Contact_not_found
+
+    @input_error
     def func_exit(self):
         print("Good bye!\n")
         exit()
