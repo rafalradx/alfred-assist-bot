@@ -575,10 +575,10 @@ class AddressBook(UserDict):
             confirm = input(
                 f"If you still want to edit it, please write (y/n):")
             if confirm == "y":
-                contact.edit_notes(Tag(new_tag)._value)
+                contact.edit_tag(Tag(new_tag)._value)
                 self.contacts[contact.name][4] = contact.tag
             elif confirm == "n":
-                print("Note was not changed.")
+                print("Tag was not changed.")
         else:
             raise Contact_not_found
 
