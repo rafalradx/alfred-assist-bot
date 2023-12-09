@@ -1,5 +1,9 @@
 # Byte-compiled / optimized / DLL files
 classes/__pycache__/
+alfred/__pycache__/
+alfred/build/
+alfred/contacts.bin
+alfred/*.egg-info
 build/
 *.egg-info/
 contacts.bin

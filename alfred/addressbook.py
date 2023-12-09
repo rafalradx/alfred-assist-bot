@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 import pickle
 from pathlib import Path
-from record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
+from .record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
 
 
 class Contact_not_found(Exception):
