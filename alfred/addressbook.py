@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 import pickle
 from pathlib import Path
-from record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
+from .record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
 
 
 class Contact_not_found(Exception):
@@ -319,6 +319,8 @@ class AddressBook(UserDict):
 
             day_of_week = birthday.strftime("%d %B (%A)")
 
+            print(today.date() == birthday_this_year)
+
             if (
                 today.date() <= birthday_this_year <= last_day.date()
                 or today.date() <= birthday_next_year <= last_day.date()
@@ -496,6 +498,7 @@ class AddressBook(UserDict):
             # )
             # contact.edit_phone(Phone(new_phone)._value)
             self.contacts[name][0] = Phone(new_phone).value
+            print("Phone changed successfully")
         else:
             raise Contact_not_found
 
@@ -512,23 +515,25 @@ class AddressBook(UserDict):
             # )
             # contact.edit_email(new_email)
             self.contacts[name][1] = Email(new_email).value
+            print("e-mail changed successfully")
         else:
             raise Contact_not_found
 
     @input_error
     def func_edit_birthday(self, name, new_birthday):
         if name in self.contacts:
-            contact = Record(
-                name,
-                self.contacts[name][0],
-                self.contacts[name][1],
-                self.contacts[name][2],
-                self.contacts[name][3],
-                self.contacts[name][4],
-                self.contacts[name][5],
-            )
-            contact.edit_birthday(Birthday(new_birthday)._value)
-            self.contacts[contact.name][2] = contact.birthday
+            # contact = Record(
+            #     name,
+            #     self.contacts[name][0],
+            #     self.contacts[name][1],
+            #     self.contacts[name][2],
+            #     self.contacts[name][3],
+            #     self.contacts[name][4],
+            #     self.contacts[name][5],
+            # )
+            # contact.edit_birthday(Birthday(new_birthday)._value)
+            self.contacts[name][2] = Birthday(new_birthday).value
+            print("birthday date changed successfully")
         else:
             raise Contact_not_found
 
@@ -594,18 +599,19 @@ class AddressBook(UserDict):
     @input_error
     def func_edit_address(self, name, new_address):
         if name in self.contacts:
-            contact = Record(
-                name,
-                self.contacts[name][0],
-                self.contacts[name][1],
-                self.contacts[name][2],
-                self.contacts[name][3],
-                self.contacts[name][4],
-                self.contacts[name][5],
-            )
-            contact.edit_address(Address(new_address)._value)
+            # contact = Record(
+            #     name,
+            #     self.contacts[name][0],
+            #     self.contacts[name][1],
+            #     self.contacts[name][2],
+            #     self.contacts[name][3],
+            #     self.contacts[name][4],
+            #     self.contacts[name][5],
+            # )
+            # contact.edit_address(Address(new_address)._value)
             # Aktualizacja adresu
-            self.contacts[contact.name][3] = contact.address
+            self.contacts[name][3] = Address(new_address).value
+            print("address changed successfully")
         else:
             raise Contact_not_found
 
