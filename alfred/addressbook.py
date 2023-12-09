@@ -166,17 +166,37 @@ class AddressBook(UserDict):
         if name in self.contacts:
             print("{:^60}".format("-" * 60))
             print("{:^20}|{:^40}".format("Name", name))
-            print("{:^20}|{:^40}".format("Phone", self.check_value(self.contacts[name][0])))
-            print("{:^20}|{:^40}".format("Email", self.check_value(self.contacts[name][1])))
-            print("{:^20}|{:^40}".format("Birthday", self.check_value(self.contacts[name][2])))
-            print("{:^20}|{:^40}".format("Address", self.check_value(self.contacts[name][3])))
-            print("{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4])))
-            print("{:^20}|{:^40}".format("Notes", self.check_value(self.contacts[name][5])))
+            print(
+                "{:^20}|{:^40}".format(
+                    "Phone", self.check_value(self.contacts[name][0])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Email", self.check_value(self.contacts[name][1])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Birthday", self.check_value(self.contacts[name][2])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Address", self.check_value(self.contacts[name][3])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Notes", self.check_value(self.contacts[name][5])
+                )
+            )
             print("{:^60}".format("-" * 60))
         else:
             raise Contact_not_found
-        
-    
 
     @input_error
     def func_search(self, keyword):
@@ -210,20 +230,19 @@ class AddressBook(UserDict):
                 contact_counter += 1
         if contact_counter == 0:
             raise Contact_not_found
-      
+
     @input_error
     def func_search_notes(self, keyword):
         print("{:^100}".format("-" * 100))
-        print(
-            "{:^20}|{:^30}|{:^50}".format(
-                "Name", "Tag", "Notes"
-            )
-        )
+        print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
         print("{:^100}".format("-" * 100))
         contact_counter = 0
         contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
-            if keyword.lower() in value[4].lower() or keyword.lower() in value[5].lower():
+            if (
+                keyword.lower() in value[4].lower()
+                or keyword.lower() in value[5].lower()
+            ):
                 print(
                     "{:^20}|{:^30}|{:^50}".format(
                         key,
@@ -265,11 +284,7 @@ class AddressBook(UserDict):
             print("Address book is empty.")
         else:
             print("{:^100}".format("-" * 100))
-            print(
-                "{:^20}|{:^30}|{:^50}".format(
-                    "Name", "Tag", "Notes"
-                )
-            )
+            print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
             print("{:^100}".format("-" * 100))
             contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
@@ -395,7 +410,7 @@ class AddressBook(UserDict):
         phone=None,
         email=None,
         birthday=None,
-        address=None,      
+        address=None,
         tag=None,
         notes=None,
     ):
@@ -421,14 +436,35 @@ class AddressBook(UserDict):
             ]
             print("{:^60}".format("-" * 60))
             print("{:^20}|{:^40}".format("Name", name))
-            print("{:^20}|{:^40}".format("Phone", self.check_value(self.contacts[name][0])))
-            print("{:^20}|{:^40}".format("Email", self.check_value(self.contacts[name][1])))
-            print("{:^20}|{:^40}".format("Birthday", self.check_value(self.contacts[name][2])))
-            print("{:^20}|{:^40}".format("Address", self.check_value(self.contacts[name][3])))
-            print("{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4])))
-            print("{:^20}|{:^40}".format("Notes", self.check_value(self.contacts[name][5])))
+            print(
+                "{:^20}|{:^40}".format(
+                    "Phone", self.check_value(self.contacts[name][0])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Email", self.check_value(self.contacts[name][1])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Birthday", self.check_value(self.contacts[name][2])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Address", self.check_value(self.contacts[name][3])
+                )
+            )
+            print(
+                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
+            )
+            print(
+                "{:^20}|{:^40}".format(
+                    "Notes", self.check_value(self.contacts[name][5])
+                )
+            )
             print("{:^60}".format("-" * 60))
-
 
     @input_error
     def func_birthday(self, name):
@@ -449,33 +485,33 @@ class AddressBook(UserDict):
     @input_error
     def func_edit_phone(self, name, new_phone):
         if name in self.contacts:
-            contact = Record(
-                name,
-                self.contacts[name][0],
-                self.contacts[name][1],
-                self.contacts[name][2],
-                self.contacts[name][3],
-                self.contacts[name][4],
-                self.contacts[name][5],
-            )
-            contact.edit_phone(Phone(new_phone)._value)
-            self.contacts[contact.name][0] = contact.phone
+            # contact = Record(
+            #     name,
+            #     self.contacts[name][0],
+            #     self.contacts[name][1],
+            #     self.contacts[name][2],
+            #     self.contacts[name][3],
+            #     self.contacts[name][4],
+            #     self.contacts[name][5],
+            # )
+            # contact.edit_phone(Phone(new_phone)._value)
+            self.contacts[name][0] = Phone(new_phone).value
         else:
             raise Contact_not_found
 
     @input_error
     def func_edit_email(self, name, new_email):
         if name in self.contacts:
-            contact_data = self.contacts[name]
-            contact = Record(
-                name,
-                contact_data[0] if len(contact_data) > 0 else None,
-                contact_data[1] if len(contact_data) > 1 else None,
-                contact_data[2] if len(contact_data) > 2 else None,
-                contact_data[3] if len(contact_data) > 3 else None,
-            )
-            contact.edit_email(new_email)
-            self.contacts[name][1] = contact.email
+            # contact_data = self.contacts[name]
+            # contact = Record(
+            #     name,
+            #     contact_data[0] if len(contact_data) > 0 else None,
+            #     contact_data[1] if len(contact_data) > 1 else None,
+            #     contact_data[2] if len(contact_data) > 2 else None,
+            #     contact_data[3] if len(contact_data) > 3 else None,
+            # )
+            # contact.edit_email(new_email)
+            self.contacts[name][1] = Email(new_email).value
         else:
             raise Contact_not_found
 
@@ -604,8 +640,7 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current tag of {name}:\n {self.contacts[name][4]}")
-            confirm = input(
-                f"If you still want to edit it, please write (y/n):")
+            confirm = input(f"If you still want to edit it, please write (y/n):")
             if confirm == "y":
                 contact.edit_tag(Tag(new_tag)._value)
                 self.contacts[contact.name][4] = contact.tag
@@ -644,8 +679,7 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current notes of {name}:\n {self.contacts[name][5]}")
-            confirm = input(
-                f"If you still want to edit it, please write (y/n):")
+            confirm = input(f"If you still want to edit it, please write (y/n):")
             if confirm == "y":
                 contact.edit_notes(Notes(new_notes)._value)
                 self.contacts[contact.name][5] = contact.notes

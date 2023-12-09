@@ -54,14 +54,14 @@ Choose one of the commands:
     - edit phone - to change phone of the user,
     - edit email - to change email of the user,
     - edit birthday - to change birthday of the user,
-    - edit adress - to change adress of the user,
+    - edit address - to change address of the user,
     - edit tag - to change tag of the user,
     - edit notes - to change notes of the user,      
     - delete contact - to remove contact from Address Book
     - delete phone - to delete phone of the user,
     - delete email - to delete email of the user,
     - delete birthday - to delete birthday of the user,
-    - delete adress - to delete adress of the user, 
+    - delete address - to delete address of the user, 
     - delete tag - to delete tag of the user,
     - delete notes - to delete notes of the user,
     - good bye, close, exit or . - to say good bye and close the program.
@@ -146,6 +146,10 @@ After entering the command, you will be asked for additional information if need
                 name = input("Enter name of the contact to edit birthday: ")
                 new_birthday = input("Enter new birthday: ")
                 OPERATIONS_MAP[listen](name, new_birthday)
+            elif listen == "edit address":
+                name = input("Enter name of the contact to edit address: ")
+                new_address = input("Enter new address: ")
+                OPERATIONS_MAP[listen](name, new_address)
             elif listen == "edit tag":
                 name = input("Enter name of the contact to edit tag: ")
                 new_tag = input("Enter new tag: ")
