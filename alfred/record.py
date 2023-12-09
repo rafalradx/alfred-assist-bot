@@ -191,3 +191,19 @@ class Record:
     def delete_address(self):
         self.address = None
         print(f"Address deleted for {self.name}")
+
+    def edit_notes(self, new_notes):
+        self.notes = new_notes
+        print(f"Notes updated for {self.name}")
+
+    def delete_notes(self):
+        self.notes = None
+        print(f"Notes deleted for {self.name}")
+
+    def edit_tag(self, new_tag):
+        self.tag = new_tag
+        print(f"Tag updated for {self.name}")
+    
+    def delete_tag(self):
+        self.tag = None
+        print(f"Tag deleted for {self.name}")

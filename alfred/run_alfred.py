@@ -60,10 +60,10 @@ After entering the command, you will be asked for additional information if need
         "hello": addressbook.func_hello,
         "find": addressbook.func_find,
         "search": addressbook.func_search,
-        "search notes" : addressbook.func_search_notes,
+        "search notes": addressbook.func_search_notes,
         "show all": addressbook.func_show_all,
         "show": addressbook.func_show,
-        "show notes" : addressbook.func_show_notes,
+        "show notes": addressbook.func_show_notes,
         "add": addressbook.func_add,
         "birthday": addressbook.func_birthday,
         "upcoming birthdays": addressbook.func_upcoming_birthdays,
@@ -129,10 +129,12 @@ After entering the command, you will be asked for additional information if need
                 OPERATIONS_MAP[listen](name, new_birthday)
             elif listen == "show":
                 try:
-                    number_of_contacts = int(input("Enter number of contacts to display: "))
+                    number_of_contacts = int(
+                        input("Enter number of contacts to display: ")
+                    )
                     OPERATIONS_MAP[listen](number_of_contacts)
                 except:
-                    print("Entered number is not an integer. Please try again.") 
+                    print("Entered number is not an integer. Please try again.")
             elif listen in ["good bye", "close", "exit", "."]:
                 addressbook.save_to_file()
                 OPERATIONS_MAP[listen.lower()]()
