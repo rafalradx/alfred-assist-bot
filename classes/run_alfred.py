@@ -34,9 +34,11 @@ What would you like to do with your Address Book?
 Choose one of the commands:
     - hello - let's say hello,
     - find - to find a contact by name,
-    - search - to find a contact after entering keyword,
+    - search - to find a contact after entering keyword (except tag and notes),
+    - search notes - to find a contact name after entering keyword by searching by tag or notes,
     - show all - to show all of your contacts from address book,
     - show - to display N contacts from Address Book,
+    - show notes - to display contact name with tag and notes,
     - add - to add new contact to Address Book,
     - birthday - to display days to birthday of the user,
     - upcoming birthdays - to check upcoming birthdays from your conatct in Address Book
@@ -58,8 +60,10 @@ After entering the command, you will be asked for additional information if need
         "hello": addressbook.func_hello,
         "find": addressbook.func_find,
         "search": addressbook.func_search,
+        "search notes" : addressbook.func_search_notes,
         "show all": addressbook.func_show_all,
         "show": addressbook.func_show,
+        "show notes" : addressbook.func_show_notes,
         "add": addressbook.func_add,
         "birthday": addressbook.func_birthday,
         "upcoming birthdays": addressbook.func_upcoming_birthdays,
@@ -86,7 +90,7 @@ After entering the command, you will be asked for additional information if need
                 phone = input("Enter phone: ")
                 email = input("Enter email: ")
                 birthday = input("Enter birthday: ")
-                address = input("Enter address:")
+                address = input("Enter address: ")
                 tag = input("Enter tag: ")
                 notes = input("Enter your notes: ")
                 OPERATIONS_MAP[listen](
@@ -108,7 +112,7 @@ After entering the command, you will be asked for additional information if need
                     "Which time frame from today would you like to check? Please input the number of days from now: "
                 )
                 OPERATIONS_MAP[listen](keyword)
-            elif listen == "search":
+            elif listen in ["search", "search notes"]:
                 keyword = input("Enter keyword: ")
                 OPERATIONS_MAP[listen](keyword)
             elif listen == "edit phone":
@@ -124,8 +128,11 @@ After entering the command, you will be asked for additional information if need
                 new_birthday = input("Enter new birthday: ")
                 OPERATIONS_MAP[listen](name, new_birthday)
             elif listen == "show":
-                number_of_contacts = int(input("Enter number of contacts to display: "))
-                OPERATIONS_MAP[listen](number_of_contacts)
+                try:
+                    number_of_contacts = int(input("Enter number of contacts to display: "))
+                    OPERATIONS_MAP[listen](number_of_contacts)
+                except:
+                    print("Entered number is not an integer. Please try again.") 
             elif listen in ["good bye", "close", "exit", "."]:
                 addressbook.save_to_file()
                 OPERATIONS_MAP[listen.lower()]()
