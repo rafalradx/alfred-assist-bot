@@ -45,12 +45,16 @@ Choose one of the commands:
     - edit phone - to change phone of the user,
     - edit email - to change email of the user,
     - edit birthday - to change birthday of the user,
-    - edit adress - to change adress of the user,      
+    - edit adress - to change adress of the user,
+    - edit tag - to change tag of the user,
+    - edit notes - to change notes of the user,      
     - delete contact - to remove contact from Address Book
     - delete phone - to delete phone of the user,
     - delete email - to delete email of the user,
     - delete birthday - to delete birthday of the user,
     - delete adress - to delete adress of the user, 
+    - delete tag - to delete tag of the user,
+    - delete notes - to delete notes of the user,
     - good bye, close, exit or . - to say good bye and close the program.
 After entering the command, you will be asked for additional information if needed to complete the command."""
     )
@@ -71,11 +75,15 @@ After entering the command, you will be asked for additional information if need
         "edit email": addressbook.func_edit_email,
         "edit birthday": addressbook.func_edit_birthday,
         "edit address": addressbook.func_edit_address,
+        "edit tag": addressbook.func_edit_tag,
+        "edit notes": addressbook.func_edit_notes,
         "delete contact": addressbook.func_delete_contact,
         "delete phone": addressbook.func_delete_phone,
         "delete email": addressbook.func_delete_email,
         "delete birthday": addressbook.func_delete_birthday,
         "delete address": addressbook.func_delete_address,
+        "delete tag": addressbook.func_delete_tag,
+        "delete notes": addressbook.func_delete_notes,
         "good bye": addressbook.func_exit,
         "close": addressbook.func_exit,
         "exit": addressbook.func_exit,
@@ -104,6 +112,8 @@ After entering the command, you will be asked for additional information if need
                 "delete email",
                 "delete birthday",
                 "delete address",
+                "delete tag",
+                "delete notes",
             ]:
                 name = input("Enter name: ")
                 OPERATIONS_MAP[listen](name)
@@ -127,6 +137,14 @@ After entering the command, you will be asked for additional information if need
                 name = input("Enter name of the contact to edit birthday: ")
                 new_birthday = input("Enter new birthday: ")
                 OPERATIONS_MAP[listen](name, new_birthday)
+            elif listen == "edit tag":
+                name = input("Enter name of the contact to edit tag: ")
+                new_tag = input("Enter new tag: ")
+                OPERATIONS_MAP[listen](name, new_tag)
+            elif listen == "edit notes":
+                name = input("Enter name of the contact to edit tag: ")
+                new_notes = input("Enter new notes: ")
+                OPERATIONS_MAP[listen](name, new_notes)
             elif listen == "show":
                 try:
                     number_of_contacts = int(
