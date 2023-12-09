@@ -1,4 +1,4 @@
-from addressbook import AddressBook
+from .addressbook import AddressBook
 
 
 def clossest_match(querry: str, commands):
