@@ -1,4 +1,4 @@
-from .addressbook import AddressBook
+from addressbook import AddressBook
 
 
 def clossest_match(querry: str, commands):
@@ -29,6 +29,15 @@ def command_hint(user_str: str, commands) -> str:
 def main():
     print(
         """
+       db        88    ad88                                88  
+      d88b       88   d8\"                                  88  
+     d8\'`8b      88   88                                   88  
+    d8\'  `8b     88 MM88MMM 8b,dPPYba,  ,adPPYba,  ,adPPYb,88  
+   d8YaaaaY8b    88   88    88P\'   \"Y8 a8P_____88 a8\"    `Y88  
+  d8\"\"\"\"\"\"\"\"8b   88   88    88         8PP\"\"\"\"\"\"\" 8b       88  
+ d8\'        `8b  88   88    88         \"8b,   ,aa \"8a,   ,d88  
+d8\'          `8b 88   88    88          `\"Ybbd8\"\'  `\"8bbdP\"Y8 
+
 Hello! I am your virtual assistant.
 What would you like to do with your Address Book?
 Choose one of the commands:

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 import pickle
 from pathlib import Path
-from .record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
+from record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
 
 
 class Contact_not_found(Exception):
@@ -208,7 +208,8 @@ class AddressBook(UserDict):
         )
         print("{:^150}".format("-" * 150))
         contact_counter = 0
-        for key, value in self.contacts.items():
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+        for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in key.lower()
                 or keyword in value[0]
@@ -220,10 +221,10 @@ class AddressBook(UserDict):
                 print(
                     "{:^30}|{:^20}|{:^30}|{:^20}|{:^50}".format(
                         key,
-                        self.check_value(self.contacts[key][0]),
-                        self.check_value(self.contacts[key][1]),
-                        self.check_value(self.contacts[key][2]),
-                        self.check_value(self.contacts[key][3]),
+                        self.check_value(value[0]),
+                        self.check_value(value[1]),
+                        self.check_value(value[2]),
+                        self.check_value(value[3]),
                     )
                 )
                 contact_counter += 1
@@ -236,7 +237,8 @@ class AddressBook(UserDict):
         print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
         print("{:^100}".format("-" * 100))
         contact_counter = 0
-        for key, value in self.contacts.items():
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+        for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in value[4].lower()
                 or keyword.lower() in value[5].lower()
@@ -244,8 +246,8 @@ class AddressBook(UserDict):
                 print(
                     "{:^20}|{:^30}|{:^50}".format(
                         key,
-                        self.check_value(self.contacts[key][4]),
-                        self.check_value(self.contacts[key][5]),
+                        self.check_value(value[4]),
+                        self.check_value(value[5]),
                     )
                 )
                 contact_counter += 1
@@ -264,7 +266,8 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^150}".format("-" * 150))
-            for name, contact in self.contacts.items():
+            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+            for name, contact in contacts_sorted.items():
                 print(
                     "{:^30}|{:^20}|{:^30}|{:^20}|{:^50}".format(
                         name,
@@ -283,7 +286,8 @@ class AddressBook(UserDict):
             print("{:^100}".format("-" * 100))
             print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
             print("{:^100}".format("-" * 100))
-            for name, contact in self.contacts.items():
+            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+            for name, contact in contacts_sorted.items():
                 print(
                     "{:^20}|{:^30}|{:^50}".format(
                         name,
@@ -360,8 +364,9 @@ class AddressBook(UserDict):
 
     @input_error
     def func_show(self, number_of_contacts):
-        iterator = iter(self.contacts.items())
-        len_of_dictionary = len(list(self.contacts.keys()))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+        iterator = iter(contacts_sorted.items())
+        len_of_dictionary = len(list(contacts_sorted.keys()))
         self.counter = 0
         while True:
             self.counter += 1
@@ -403,9 +408,9 @@ class AddressBook(UserDict):
         self,
         name,
         phone=None,
-        address=None,
         email=None,
         birthday=None,
+        address=None,
         tag=None,
         notes=None,
     ):
