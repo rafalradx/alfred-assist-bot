@@ -34,8 +34,6 @@ _Alfred_ is designed with a user-friendly command-line interface for intuitive i
 
 No additional configurations are required. _Alfred_ stores the address book data locally.
 
-<!-- czy taka wersja? -->
-
 ## Features
 
 _Alfred_ provides a range of essential functionalities for managing your address book effectively. Here's an expanded overview of its capabilities:
@@ -60,13 +58,11 @@ Sample table of upcoming birthdays within a specified timeframe:
 Sample table of notes:
 ![Alfred-show_notes](https://github.com/rafalradx/alfred-assist-bot/tree/main/alfred/show_notes.jpg)
 
-<!-- trzeba sprawdzić ścieżki dostępu -->
-
 ## Setup
 
 1. **Clone the Repository:**
 
-   - Clone this repository into a folder on your local machine using the following command:
+   - Clone this repository into a folder of choice on your local machine using the following command:
      ```
      git clone https://github.com/rafalradx/alfred-assist-bot
      ```
@@ -77,7 +73,7 @@ Sample table of notes:
      ```
      cd alfred-assist-bot
      ```
-   - Run the following command install application:
+   - Run the following command to install application:
      ```
      pip install .
      ```
