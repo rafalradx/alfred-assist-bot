@@ -1,9 +1,7 @@
 # Project Name
 
 _'Alfred'_ the CLI Bot assistant.
-![Alfred-sign](https://github.com/rafalradx/alfred-assist-bot/tree/main/alfred/Alfred.jpg)
-
-<!-- trzeba sprawdzić ścieżkę dostępu -->
+![Alfred-sign](https://github.com/rafalradx/alfred-assist-bot/blob/main/alfred/Alfred.jpg)
 
 ## Table of Contents
 
@@ -50,13 +48,13 @@ _Alfred_ provides a range of essential functionalities for managing your address
 ## Screenshots
 
 Sample table of contacts:
-![Alfred-show-all](https://github.com/rafalradx/alfred-assist-bot/tree/main/alfred/show_all.jpg)
+![Alfred-show-all](https://github.com/rafalradx/alfred-assist-bot/blob/main/alfred/show_all.jpg)
 
 Sample table of upcoming birthdays within a specified timeframe:
-![Alfred-birthdays](https://github.com/rafalradx/alfred-assist-bot/tree/main/alfred/birthdays.jpg)
+![Alfred-birthdays](https://github.com/rafalradx/alfred-assist-bot/blob/main/alfred/birthdays.jpg)
 
 Sample table of notes:
-![Alfred-show_notes](https://github.com/rafalradx/alfred-assist-bot/tree/main/alfred/show_notes.jpg)
+![Alfred-show_notes](https://github.com/rafalradx/alfred-assist-bot/blob/main/alfred/show_notes.jpg)
 
 ## Setup
 
@@ -81,7 +79,9 @@ Sample table of notes:
      ```
      python setup.py install
      ```
+
 3. **Run the Application:**
+
    - Start the Address Book application using the following command:
      ```
      alfred-run
