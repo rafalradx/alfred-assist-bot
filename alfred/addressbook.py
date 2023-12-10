@@ -303,7 +303,7 @@ class AddressBook(UserDict):
         days = int(days_str)
         last_day = today + timedelta(days=days)
         formatted_last_day = last_day.strftime("%d %B %Y")
-        print(f"Checking period ({formatted_date} - {formatted_last_day}).")
+        print(f"\nChecking period ({formatted_date} - {formatted_last_day}).\n")
 
         birthdays_list = {}
         today_birthday = {}
@@ -317,13 +317,15 @@ class AddressBook(UserDict):
             birthday_this_year = birthday.replace(year=today.year)
             birthday_next_year = birthday.replace(year=today.year + 1)
 
+            
             day_of_week = birthday.strftime("%d %B (%A)")
-
-            print(today.date() == birthday_this_year)
+            print("Day of week:")
+            print(day_of_week)
+            #print(today.date() == birthday_this_year)
 
             if (
-                today.date() <= birthday_this_year <= last_day.date()
-                or today.date() <= birthday_next_year <= last_day.date()
+                today.date() < birthday_this_year <= last_day.date()
+                or today.date() < birthday_next_year <= last_day.date()
             ):
                 if day_of_week not in birthdays_list:
                     birthdays_list[day_of_week] = []
@@ -334,7 +336,7 @@ class AddressBook(UserDict):
                 today_birthday[day_of_week].append((name, phone, email))
 
         if not any(birthdays_list.values()) and not any(today_birthday.values()):
-            print(f"None of your contacts have upcoming birthdays in this period.")
+            print(f"\nNone of your contacts have upcoming birthdays in this period.")
         else:
             print(
                 "   O O O O \n" "  _|_|_|_|_\n" " |         |\n",
@@ -351,7 +353,7 @@ class AddressBook(UserDict):
                     print("{:^30}|{:^30}|{:^30}".format(*user_info))
                     print("*" * 90)
         if any(birthdays_list.values()):
-            print("Send birthday wishes to your contact on the upcoming days:")
+            print("\nSend birthday wishes to your contact on the upcoming days:")
             print("{:^120}".format("-" * 120))
             print(
                 "{:^30}|{:^30}|{:^30}|{:^30}".format(
