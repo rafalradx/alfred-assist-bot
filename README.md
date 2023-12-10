@@ -97,7 +97,6 @@ Sample table of notes:
      ```
      pip uninstall alfred
      ```
-   - Follow the on-screen instructions to interact with the application.
 
 ## Usage
 
