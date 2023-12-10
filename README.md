@@ -30,7 +30,7 @@ _Alfred_ is designed with a user-friendly command-line interface for intuitive i
 
 ## Technologies Used
 
-Python 3.11.5
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3115/)
 
 No additional configurations are required. _Alfred_ stores the address book data locally.
 
@@ -66,26 +66,36 @@ Sample table of notes:
 
 1. **Clone the Repository:**
 
-   - Clone this repository to your local machine using the following command:
+   - Clone this repository into a folder on your local machine using the following command:
      ```
-     git clone [repository_url]
+     git clone https://github.com/rafalradx/alfred-assist-bot
      ```
 
 2. **Setup the Application:**
 
    - Navigate to the project directory:
      ```
-     cd address-book-application
+     cd alfred-assist-bot
      ```
-   - Run the following command to set up the application:
+   - Run the following command install application:
+     ```
+     pip install .
+     ```
+     or
      ```
      python setup.py install
      ```
-
 3. **Run the Application:**
    - Start the Address Book application using the following command:
      ```
      alfred-run
+     ```
+   - Follow the on-screen instructions to interact with the application.
+
+4. **Uninstall:**
+   - To remove Alfred run the following command:
+     ```
+     pip uninstall alfred
      ```
    - Follow the on-screen instructions to interact with the application.
 
@@ -165,6 +175,4 @@ Thank you for using _Alfred_!
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-<!-- czy to pisać? czy dodajemy plik z licencją? -->
+This project is licensed under the MIT License.
