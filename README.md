@@ -1,6 +1,7 @@
 # Project Name
 
-_'Alfred'_ the CLI Bot assistant.
+**_'Alfred'_ the CLI Bot assistant.**
+
 ![Alfred-sign](https://github.com/rafalradx/alfred-assist-bot/blob/main/alfred/Alfred.jpg)
 
 ## Table of Contents
