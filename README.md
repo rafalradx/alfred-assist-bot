@@ -31,6 +31,9 @@ _Alfred_ is designed with a user-friendly command-line interface for intuitive i
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3115/)
 
+Requirements:
+![thefuzz](https://pypi.org/project/thefuzz/) - package for fuzzy text matching 
+
 No additional configurations are required. _Alfred_ stores the address book data locally.
 
 ## Features
@@ -66,7 +69,13 @@ Sample table of notes:
      git clone https://github.com/rafalradx/alfred-assist-bot
      ```
 
-2. **Setup the Application:**
+2. **Indstall dependencies:**
+   - Install ![thefuzz](https://pypi.org/project/thefuzz/) package:
+     ```
+     pip install thefuzz
+     ```
+
+3. **Setup the Application:**
 
    - Navigate to the project directory:
      ```
@@ -81,7 +90,7 @@ Sample table of notes:
      python setup.py install
      ```
 
-3. **Run the Application:**
+4. **Run the Application:**
 
    - Start the Address Book application using the following command:
      ```
@@ -89,7 +98,7 @@ Sample table of notes:
      ```
    - Follow the on-screen instructions to interact with the application.
 
-4. **Uninstall:**
+5. **Uninstall:**
    - To remove Alfred run the following command:
      ```
      pip uninstall alfred
