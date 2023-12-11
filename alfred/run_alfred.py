@@ -15,7 +15,7 @@ def clossest_match(querry: str, commands):
         return clossest_match(querry[:-1], commands)
 
 
-def command_hint(user_str: str, commands, threshold: int = 20) -> str:
+def command_hint(user_str: str, commands, threshold: int = 0) -> str:
     """return string with hint for user describing
     closest match to the available bot commands"""
     user_str = user_str.strip()
