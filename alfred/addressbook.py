@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import pickle
 from pathlib import Path
 from .record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
+import textwrap
 
 
 class Contact_not_found(Exception):
@@ -189,9 +190,13 @@ class AddressBook(UserDict):
             print(
                 "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
             )
+            print("{:^60}".format("-" * 60))
+            # print(f"Notes: {self.check_value(self.contacts[name][5]):{60}}")
             print(
-                "{:^20}|{:^40}".format(
-                    "Notes", self.check_value(self.contacts[name][5])
+                "\n".join(
+                    textwrap.wrap(
+                        f"Notes: {self.check_value(self.contacts[name][5])}", width=60
+                    )
                 )
             )
             print("{:^60}".format("-" * 60))
@@ -234,7 +239,8 @@ class AddressBook(UserDict):
     @input_error
     def func_search_notes(self, keyword):
         print("{:^100}".format("-" * 100))
-        print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
+        # print("{:^20}|{:^40}|{:^50}".format("Name", "Tag", "Notes"))
+        print("{:^20}|{:^40}".format("Name", "Tag"))
         print("{:^100}".format("-" * 100))
         contact_counter = 0
         contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
@@ -243,13 +249,18 @@ class AddressBook(UserDict):
                 keyword.lower() in value[4].lower()
                 or keyword.lower() in value[5].lower()
             ):
+                print("{:^20}|{:^40}".format(key, self.check_value(value[4])))
                 print(
-                    "{:^20}|{:^30}|{:^50}".format(
-                        key,
-                        self.check_value(value[4]),
-                        self.check_value(value[5]),
+                    "\n".join(
+                        textwrap.wrap(
+                            f"Notes: {self.check_value(self.contacts[value[5]])}",
+                            width=60,
+                        )
                     )
                 )
+
+                print("{:^100}".format("-" * 100))
+
                 contact_counter += 1
         if contact_counter == 0:
             raise Contact_not_found
@@ -720,7 +731,8 @@ class AddressBook(UserDict):
 
     @input_error
     def func_exit(self):
-        print("""
+        print(
+            """
                                            ..::::------:::..                                           
                                  .:-=+*#%@@@@@@@@@@@@@@@@@@@@%##*+=:.                                  
                             :-+#%@@@@@@@@@@@@%%##******##%%@@@@@@@@@@@#*=:                             
@@ -759,5 +771,6 @@ class AddressBook(UserDict):
                             .-+*%@@@@@@@@@@@@%%%#######%%%@@@@@@@@@@@%#+-:                             
                                   :-=+*#%%@@@@@@@@@@@@@@@@@@%%#*+=-:.                                  
                                            ...::------:::.                      
-""")
+"""
+        )
         exit()
