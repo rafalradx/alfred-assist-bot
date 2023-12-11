@@ -68,7 +68,7 @@ class AddressBook(UserDict):
                     "700 222 333",
                     "apennyworth@gothammail.com",
                     "1995-01-30",
-                    "524 Alfred Pennyworth Street, Gotham City",
+                    "Wayne's Manor 1, Gotham City",
                     "butler, assistant",
                     "Alfred Pennyworth is Bruce Wayne's loyal butler and confidant, providing emotional support, guidance, and practical assistance to Batman in his quest to save Gotham.",
                 ],
@@ -119,6 +119,30 @@ class AddressBook(UserDict):
                     "735 Penguin Street, Gotham City",
                     "villain",
                     "Oswald Cobblepot, aka the Penguin, is a cunning and stylish criminal mastermind with a penchant for bird-related gadgets and a desire for wealth and power in the criminal underworld of Gotham City.",
+                ],
+                "Ra's al Ghul": [
+                    "780 888 999",
+                    "rasalghul@assassin.com",
+                    "1977-08-03",
+                    "Gotham City, Lazarus Mountain, Nanga Parbat Cave",
+                    "supervillain",
+                    "Ra's al Ghul, a centuries-old and enigmatic mastermind, is the leader of the League of Assassins. His mission, fueled by a belief in achieving global balance through extreme measures, brings him into frequent conflict with Batman, whom he views as a potential heir to his legacy.",
+                ],
+                "Poison Ivy": [
+                    "665 111 222",
+                    "poison_ivy@villain.com",
+                    "1980-02-12",
+                    "790 Poison Ivy Street, Gotham City",
+                    "villain, flowers, ivy",
+                    "Dr. Pamela Isley, known as Poison Ivy, is an eco-terrorist with a deadly touch, wielding control over plants and using her botanical prowess to defend the environment while often clashing with Gotham's heroes, particularly Batman.",
+                ],
+                "Batgirl": [
+                    "600 123 456",
+                    "batgirl@wayneenterprises.com",
+                    "1995-05-26",
+                    "394 Batgirl Street, Gotham City",
+                    "superheroin, bat",
+                    "Batgirl, alter ego of characters like Barbara Gordon, is a highly skilled crime-fighter and ally to Batman. Whether as a tech-savvy vigilante or as Commissioner Gordon's daughter, Batgirl plays a crucial role in Gotham's ongoing battle against crime.",
                 ],
             }
         else:
@@ -238,10 +262,10 @@ class AddressBook(UserDict):
 
     @input_error
     def func_search_notes(self, keyword):
-        print("{:^100}".format("-" * 100))
+        print("{:^70}".format("-" * 70))
         # print("{:^20}|{:^40}|{:^50}".format("Name", "Tag", "Notes"))
         print("{:^20}|{:^40}".format("Name", "Tag"))
-        print("{:^100}".format("-" * 100))
+        print("{:^70}".format("-" * 70))
         contact_counter = 0
         contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
@@ -250,16 +274,17 @@ class AddressBook(UserDict):
                 or keyword.lower() in value[5].lower()
             ):
                 print("{:^20}|{:^40}".format(key, self.check_value(value[4])))
+                print("{:^70}".format("-" * 70))
                 print(
                     "\n".join(
                         textwrap.wrap(
-                            f"Notes: {self.check_value(self.contacts[value[5]])}",
-                            width=60,
+                            f"Notes: {self.check_value(value[5])}",
+                            width=70,
                         )
                     )
                 )
 
-                print("{:^100}".format("-" * 100))
+                print("{:^70}".format("=" * 70))
 
                 contact_counter += 1
         if contact_counter == 0:
