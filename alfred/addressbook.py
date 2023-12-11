@@ -39,81 +39,81 @@ class AddressBook(UserDict):
     def read_from_file(self):
         if self.path.is_file() == False:
             self.contacts = {
-                "Anna Nowak": [
+                "Bruce Wayne": [
                     "600 123 456",
-                    "anowak@email.com",
+                    "bwayne@gothammail.com",
                     "1985-10-20",
-                    "Wroclaw, 50-234, ul. Trzebnicka 23/4",
-                    "Okulista",
-                    "Przyjmuje od 8 do 16",
+                    "Gotham City, Wayne's residence",
+                    "Batman",
+                    "Saves Gotham from villains",
                 ],
-                "Piotr Wiśniewski": [
+                "Jim Gordon": [
                     "512 987 654",
-                    "pwiśniewski@email.com",
+                    "jgordon@batmail.com",
                     "1992-03-07",
-                    "Warszawa, 00-001, ul. Kwiatowa 5/3",
-                    "Mechanik",
-                    "",
+                    "Gotham City, 00-001, ul. Kwiatowa 5/3",
+                    "Villain",
+                    "Hates Batman",
                 ],
-                "Magdalena Kowalczyk": [
+                "Two-face": [
                     "665 111 222",
-                    "mkowalczyk@email.com",
+                    "two-face@darkknightmail.com",
                     "1988-07-12",
-                    "Kraków, 30-300, Aleja Słoneczna 7B",
-                    "Kwiaciarnia",
+                    "Gotham City, 30-300, Aleja Słoneczna 7B",
+                    "burmistrz",
                     "Piekne maja tulipany",
                 ],
-                "Kamil Lewandowski": [
+                "Alfred Pennyworth": [
                     "700 222 333",
-                    "klewandowski@email.com",
+                    "apennyworth@gothammail.com",
                     "1995-01-30",
-                    "Gdańsk, 80-800, ul. Dębowa 22/8",
+                    "Gotham City, 80-800, ul. Dębowa 22/8",
                     "Fryzjer",
                     "Dobre ceny",
                 ],
-                "Aleksandra Wójcik": [
+                "Batman": [
                     "510 333 444",
-                    "awójcik@email.com",
+                    "batman@batmail.com",
                     "1983-12-04",
                     "Łódź, 90-090, Rondo Róży 3",
                     "Praca",
                     "Wspolpracownik",
                 ],
-                "Michał Kamiński": [
+                "Robin": [
                     "730 444 555",
-                    "mkamiński@email.com",
+                    "robin@batmail.com",
                     "1997-09-18",
                     "Lublin, 20-200, ul. Leśna 15A",
                     "Koszykowka",
                     "Kumpel z podworka",
                 ],
-                "Karolina Jankowska": [
+                "Catwoman": [
                     "602 555 666",
-                    "kjankowska@email.com",
+                    "catwoman@batmail.com",
                     "1991-06-25",
                     "Poznań, 60-600, Plac Morski 4/6",
                     "Praca",
                     "Manager",
                 ],
-                "Tomasz Zając": [
+                "Joker": [
                     "516 666 777",
-                    "tzając@email.com",
+                    "joker@gothammail.com",
                     "1980-04-09",
                     "Olsztyn, 10-100, Aleja Zielona 12",
                     "Szkola",
                     "Nauczyciel od matematyki dziecka",
                 ],
-                "Natalia Szymańska": [
+                "Harley Quinn": [
                     "660 777 888",
-                    "nszymańska@email.com",
+                    "hquinn@darkknightmail.com",
                     "1994-11-19",
                     "Katowice, 40-400, ul. Słowackiego 9/2",
                     "Dentysta",
                     "Ciezko z terminami",
                 ],
-                "Marcin Dąbrowski": [
+                "Penguin": [
                     "780 888 999",
-                    "mdąbrowski@email.com",
+                    "penguin@batmail.com",
                     "1987-08-03",
                     "Szczecin, 70-700, Skwer Nadbrzeżny 18",
                     "Szkola",
@@ -187,8 +187,7 @@ class AddressBook(UserDict):
                 )
             )
             print(
-                "{:^20}|{:^40}".format(
-                    "Tag", self.check_value(self.contacts[name][4]))
+                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
             )
             print(
                 "{:^20}|{:^40}".format(
@@ -209,8 +208,7 @@ class AddressBook(UserDict):
         )
         print("{:^150}".format("-" * 150))
         contact_counter = 0
-        contacts_sorted = dict(
-            sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in key.lower()
@@ -239,8 +237,7 @@ class AddressBook(UserDict):
         print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
         print("{:^100}".format("-" * 100))
         contact_counter = 0
-        contacts_sorted = dict(
-            sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in value[4].lower()
@@ -269,8 +266,7 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^150}".format("-" * 150))
-            contacts_sorted = dict(
-                sorted(self.contacts.items(), key=lambda x: x[0]))
+            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
                 print(
                     "{:^30}|{:^20}|{:^30}|{:^20}|{:^50}".format(
@@ -290,8 +286,7 @@ class AddressBook(UserDict):
             print("{:^100}".format("-" * 100))
             print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
             print("{:^100}".format("-" * 100))
-            contacts_sorted = dict(
-                sorted(self.contacts.items(), key=lambda x: x[0]))
+            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
                 print(
                     "{:^20}|{:^30}|{:^50}".format(
@@ -307,13 +302,13 @@ class AddressBook(UserDict):
             date = datetime.strptime(date_str, "%d %B (%A)")
             current_month = datetime.now().month
             return (date.month - current_month) % 12
+
         today = datetime.now()
         formatted_date = today.strftime("%d %B %Y")
         days = int(days_str)
         last_day = today + timedelta(days=days)
         formatted_last_day = last_day.strftime("%d %B %Y")
-        print(
-            f"\nChecking period ({formatted_date} - {formatted_last_day}).\n")
+        print(f"\nChecking period ({formatted_date} - {formatted_last_day}).\n")
 
         birthdays_list = {}
         today_birthday = {}
@@ -369,15 +364,16 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^120}".format("-" * 120))
-            for day, users in sorted(birthdays_list.items(), key=lambda x: month_sort_key(x[0])):
+            for day, users in sorted(
+                birthdays_list.items(), key=lambda x: month_sort_key(x[0])
+            ):
                 for user_info in users:
                     print("{:^30}|{:^30}|{:^30}|{:^30}".format(day, *user_info))
                     print("-" * 120)
 
     @input_error
     def func_show(self, number_of_contacts):
-        contacts_sorted = dict(
-            sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         iterator = iter(contacts_sorted.items())
         len_of_dictionary = len(list(contacts_sorted.keys()))
         self.counter = 0
@@ -470,8 +466,7 @@ class AddressBook(UserDict):
                 )
             )
             print(
-                "{:^20}|{:^40}".format(
-                    "Tag", self.check_value(self.contacts[name][4]))
+                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
             )
             print(
                 "{:^20}|{:^40}".format(
@@ -658,8 +653,7 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current tag of {name}:\n {self.contacts[name][4]}")
-            confirm = input(
-                f"If you still want to edit it, please write (y/n):")
+            confirm = input(f"If you still want to edit it, please write (y/n):")
             if confirm in ["y", "Y", "Yes", "yes", "True"]:
                 contact.edit_tag(Tag(new_tag)._value)
                 self.contacts[contact.name][4] = contact.tag
@@ -698,8 +692,7 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current notes of {name}:\n {self.contacts[name][5]}")
-            confirm = input(
-                f"If you still want to edit it, please write (y/n):")
+            confirm = input(f"If you still want to edit it, please write (y/n):")
             if confirm in ["y", "Y", "Yes", "yes", "True"]:
                 contact.edit_notes(Notes(new_notes)._value)
                 self.contacts[contact.name][5] = contact.notes
