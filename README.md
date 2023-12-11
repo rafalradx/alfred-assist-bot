@@ -69,7 +69,7 @@ Sample table of notes:
      git clone https://github.com/rafalradx/alfred-assist-bot
      ```
 
-2. **Indstall dependencies:**
+2. **Install dependencies:**
    - Install ![thefuzz](https://pypi.org/project/thefuzz/) package:
      ```
      pip install thefuzz
