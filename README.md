@@ -134,13 +134,12 @@ Project is: _**in progress**_.
 
 1. Database Interaction: enhance by incorporating database support for persistent storage and retrieval of contacts.
 2. Data Export and Import: allow users to export and import data, facilitating seamless data transfer between different program installations.
-3. Advanced Search: expand search functionality to enable users to perform more precise searches, such as by partial phone numbers, emails, or addresses.
-4. Image Attachment: introduce the capability to add images to contacts for easier identification.
-5. Integration with External Sources: add an automatic contact information completion feature by leveraging external sources through web service APIs.
-6. External Communication: transition _Alfred_ into a server mode to enable remote access to functions via an API, useful for integration with other tools.
-7. Authentication and Security: implement user authentication features and secure access to editing or deletion functions with a password.
-8. Activity History: allow users to track the history of changes for each contact, facilitating monitoring of who made edits and when.
-9. Command Extensions: provide an easy way to add new commands and extend _Alfred's_ capabilities without modifying existing code.
+3. Image Attachment: introduce the capability to add images to contacts for easier identification.
+4. Integration with External Sources: add an automatic contact information completion feature by leveraging external sources through web service APIs.
+5. External Communication: transition _Alfred_ into a server mode to enable remote access to functions via an API, useful for integration with other tools.
+6. Authentication and Security: implement user authentication features and secure access to editing or deletion functions with a password.
+7. Activity History: allow users to track the history of changes for each contact, facilitating monitoring of who made edits and when.
+8. Command Extensions: provide an easy way to add new commands and extend _Alfred's_ capabilities without modifying existing code.
 
 ## Contributing
 
@@ -163,8 +162,6 @@ Created by **'Gotham Devs'**
 **Dawid Radzimski** _dawid.radzimski@gmail.com_
 
 **Adrian Karwat** _adr.karwat@gmail.com_
-
-<!-- Czy dopisać nasze role?-->
 
 Feel free to contact us!
 Thank you for using _Alfred_!
