@@ -1,4 +1,5 @@
 from .addressbook import AddressBook
+from thefuzz import fuzz
 
 
 def clossest_match(querry: str, commands):
@@ -14,12 +15,33 @@ def clossest_match(querry: str, commands):
         return clossest_match(querry[:-1], commands)
 
 
-def command_hint(user_str: str, commands) -> str:
+def command_hint(user_str: str, commands, threshold: int = 0) -> str:
     """return string with hint for user describing
     closest match to the available bot commands"""
     user_str = user_str.strip()
     hint = ""
-    hits = clossest_match(user_str, commands)
+    # for short string use startwith
+    if len(user_str) <= 3:
+        hits = clossest_match(user_str, commands)
+    else:  # for longer strings use fuzzy string matching
+        # calculate similarity scores for each command
+        # ratio
+        # scores = [fuzz.ratio(user_str, command) for command in commands]
+        # partial
+        # print(commands)
+        scores = [fuzz.partial_ratio(user_str, command) for command in commands]
+
+        # threshold = 0
+        scores = list(filter(lambda x: x >= threshold, scores))
+        # print(scores)
+        # find best score
+        best_score = max(scores)
+        # print(best_score)
+        # find all commands with best scores
+        hits = [
+            command for score, command in zip(scores, commands) if score == best_score
+        ]
+        # print(hits)
 
     if len(hits) > 0:
         hint = f"Did you mean?: {', '.join(hits)}"
@@ -67,36 +89,36 @@ Choose one of the commands:
     - good bye, close, exit or . - to say good bye and close the program.
 After entering the command, you will be asked for additional information if needed to complete the command."""
     )
-    addressbook = AddressBook()
-    addressbook.read_from_file()
+    user_addr_book = AddressBook()
+    user_addr_book.read_from_file()
     OPERATIONS_MAP = {
-        "hello": addressbook.func_hello,
-        "find": addressbook.func_find,
-        "search": addressbook.func_search,
-        "search notes": addressbook.func_search_notes,
-        "show all": addressbook.func_show_all,
-        "show": addressbook.func_show,
-        "show notes": addressbook.func_show_notes,
-        "add": addressbook.func_add,
-        "birthday": addressbook.func_birthday,
-        "upcoming birthdays": addressbook.func_upcoming_birthdays,
-        "edit phone": addressbook.func_edit_phone,
-        "edit email": addressbook.func_edit_email,
-        "edit birthday": addressbook.func_edit_birthday,
-        "edit address": addressbook.func_edit_address,
-        "edit tag": addressbook.func_edit_tag,
-        "edit notes": addressbook.func_edit_notes,
-        "delete contact": addressbook.func_delete_contact,
-        "delete phone": addressbook.func_delete_phone,
-        "delete email": addressbook.func_delete_email,
-        "delete birthday": addressbook.func_delete_birthday,
-        "delete address": addressbook.func_delete_address,
-        "delete tag": addressbook.func_delete_tag,
-        "delete notes": addressbook.func_delete_notes,
-        "good bye": addressbook.func_exit,
-        "close": addressbook.func_exit,
-        "exit": addressbook.func_exit,
-        ".": addressbook.func_exit,
+        "hello": user_addr_book.func_hello,
+        "find": user_addr_book.func_find,
+        "search": user_addr_book.func_search,
+        "search notes": user_addr_book.func_search_notes,
+        "show all": user_addr_book.func_show_all,
+        "show": user_addr_book.func_show,
+        "show notes": user_addr_book.func_show_notes,
+        "add": user_addr_book.func_add,
+        "birthday": user_addr_book.func_birthday,
+        "upcoming birthdays": user_addr_book.func_upcoming_birthdays,
+        "edit phone": user_addr_book.func_edit_phone,
+        "edit email": user_addr_book.func_edit_email,
+        "edit birthday": user_addr_book.func_edit_birthday,
+        "edit address": user_addr_book.func_edit_address,
+        "edit tag": user_addr_book.func_edit_tag,
+        "edit notes": user_addr_book.func_edit_notes,
+        "delete contact": user_addr_book.func_delete_contact,
+        "delete phone": user_addr_book.func_delete_phone,
+        "delete email": user_addr_book.func_delete_email,
+        "delete birthday": user_addr_book.func_delete_birthday,
+        "delete address": user_addr_book.func_delete_address,
+        "delete tag": user_addr_book.func_delete_tag,
+        "delete notes": user_addr_book.func_delete_notes,
+        "good bye": user_addr_book.func_exit,
+        "close": user_addr_book.func_exit,
+        "exit": user_addr_book.func_exit,
+        ".": user_addr_book.func_exit,
     }
     while True:
         listen_enterred = input("\nEnter your command here: ")
@@ -167,7 +189,7 @@ After entering the command, you will be asked for additional information if need
                 except:
                     print("Entered number is not an integer. Please try again.")
             elif listen in ["good bye", "close", "exit", "."]:
-                addressbook.save_to_file()
+                user_addr_book.save_to_file()
                 OPERATIONS_MAP[listen.lower()]()
             else:
                 OPERATIONS_MAP[listen.lower()]()
