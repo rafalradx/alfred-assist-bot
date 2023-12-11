@@ -31,7 +31,7 @@ def command_hint(user_str: str, commands, threshold: int = 0) -> str:
         # print(commands)
         scores = [fuzz.partial_ratio(user_str, command) for command in commands]
 
-        threshold = 0
+        # threshold = 0
         scores = list(filter(lambda x: x >= threshold, scores))
         # print(scores)
         # find best score
