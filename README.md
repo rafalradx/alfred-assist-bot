@@ -32,7 +32,7 @@ _Alfred_ is designed with a user-friendly command-line interface for intuitive i
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3115/)
 
 Requirements:
-![thefuzz](https://pypi.org/project/thefuzz/) - package for fuzzy text matching 
+   - [![thefuzz]](https://pypi.org/project/thefuzz/) - package for fuzzy text matching 
 
 No additional configurations are required. _Alfred_ stores the address book data locally.
 
