@@ -187,7 +187,8 @@ class AddressBook(UserDict):
                 )
             )
             print(
-                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
+                "{:^20}|{:^40}".format(
+                    "Tag", self.check_value(self.contacts[name][4]))
             )
             print(
                 "{:^20}|{:^40}".format(
@@ -208,7 +209,8 @@ class AddressBook(UserDict):
         )
         print("{:^150}".format("-" * 150))
         contact_counter = 0
-        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(
+            sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in key.lower()
@@ -237,7 +239,8 @@ class AddressBook(UserDict):
         print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
         print("{:^100}".format("-" * 100))
         contact_counter = 0
-        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(
+            sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in value[4].lower()
@@ -266,7 +269,8 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^150}".format("-" * 150))
-            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+            contacts_sorted = dict(
+                sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
                 print(
                     "{:^30}|{:^20}|{:^30}|{:^20}|{:^50}".format(
@@ -286,7 +290,8 @@ class AddressBook(UserDict):
             print("{:^100}".format("-" * 100))
             print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
             print("{:^100}".format("-" * 100))
-            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+            contacts_sorted = dict(
+                sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
                 print(
                     "{:^20}|{:^30}|{:^50}".format(
@@ -298,12 +303,17 @@ class AddressBook(UserDict):
 
     @input_error
     def func_upcoming_birthdays(self, days_str):
+        def month_sort_key(date_str):
+            date = datetime.strptime(date_str, "%d %B (%A)")
+            current_month = datetime.now().month
+            return (date.month - current_month) % 12
         today = datetime.now()
         formatted_date = today.strftime("%d %B %Y")
         days = int(days_str)
         last_day = today + timedelta(days=days)
         formatted_last_day = last_day.strftime("%d %B %Y")
-        print(f"Checking period ({formatted_date} - {formatted_last_day}).")
+        print(
+            f"\nChecking period ({formatted_date} - {formatted_last_day}).\n")
 
         birthdays_list = {}
         today_birthday = {}
@@ -317,24 +327,24 @@ class AddressBook(UserDict):
             birthday_this_year = birthday.replace(year=today.year)
             birthday_next_year = birthday.replace(year=today.year + 1)
 
-            day_of_week = birthday.strftime("%d %B (%A)")
-
-            print(today.date() == birthday_this_year)
-
-            if (
-                today.date() <= birthday_this_year <= last_day.date()
-                or today.date() <= birthday_next_year <= last_day.date()
-            ):
+            if today.date() < birthday_this_year <= last_day.date():
+                day_of_week = birthday_this_year.strftime("%d %B (%A)")
+                if day_of_week not in birthdays_list:
+                    birthdays_list[day_of_week] = []
+                birthdays_list[day_of_week].append((name, phone, email))
+            elif today.date() < birthday_next_year <= last_day.date():
+                day_of_week = birthday_next_year.strftime("%d %B (%A)")
                 if day_of_week not in birthdays_list:
                     birthdays_list[day_of_week] = []
                 birthdays_list[day_of_week].append((name, phone, email))
             elif today.date() == birthday_this_year:
+                day_of_week = birthday_this_year.strftime("%d %B (%A)")
                 if day_of_week not in today_birthday:
                     today_birthday[day_of_week] = []
                 today_birthday[day_of_week].append((name, phone, email))
 
         if not any(birthdays_list.values()) and not any(today_birthday.values()):
-            print(f"None of your contacts have upcoming birthdays in this period.")
+            print(f"\nNone of your contacts have upcoming birthdays in this period.")
         else:
             print(
                 "   O O O O \n" "  _|_|_|_|_\n" " |         |\n",
@@ -351,7 +361,7 @@ class AddressBook(UserDict):
                     print("{:^30}|{:^30}|{:^30}".format(*user_info))
                     print("*" * 90)
         if any(birthdays_list.values()):
-            print("Send birthday wishes to your contact on the upcoming days:")
+            print("\nSend birthday wishes to your contact on the upcoming days:")
             print("{:^120}".format("-" * 120))
             print(
                 "{:^30}|{:^30}|{:^30}|{:^30}".format(
@@ -359,14 +369,15 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^120}".format("-" * 120))
-            for day, users in sorted(birthdays_list.items(), key=lambda x: x[0]):
+            for day, users in sorted(birthdays_list.items(), key=lambda x: month_sort_key(x[0])):
                 for user_info in users:
                     print("{:^30}|{:^30}|{:^30}|{:^30}".format(day, *user_info))
                     print("-" * 120)
 
     @input_error
     def func_show(self, number_of_contacts):
-        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(
+            sorted(self.contacts.items(), key=lambda x: x[0]))
         iterator = iter(contacts_sorted.items())
         len_of_dictionary = len(list(contacts_sorted.keys()))
         self.counter = 0
@@ -459,7 +470,8 @@ class AddressBook(UserDict):
                 )
             )
             print(
-                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
+                "{:^20}|{:^40}".format(
+                    "Tag", self.check_value(self.contacts[name][4]))
             )
             print(
                 "{:^20}|{:^40}".format(
@@ -646,11 +658,12 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current tag of {name}:\n {self.contacts[name][4]}")
-            confirm = input(f"If you still want to edit it, please write (y/n):")
-            if confirm == "y":
+            confirm = input(
+                f"If you still want to edit it, please write (y/n):")
+            if confirm in ["y", "Y", "Yes", "yes", "True"]:
                 contact.edit_tag(Tag(new_tag)._value)
                 self.contacts[contact.name][4] = contact.tag
-            elif confirm == "n":
+            else:
                 print("Tag was not changed.")
         else:
             raise Contact_not_found
@@ -685,11 +698,12 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current notes of {name}:\n {self.contacts[name][5]}")
-            confirm = input(f"If you still want to edit it, please write (y/n):")
-            if confirm == "y":
+            confirm = input(
+                f"If you still want to edit it, please write (y/n):")
+            if confirm in ["y", "Y", "Yes", "yes", "True"]:
                 contact.edit_notes(Notes(new_notes)._value)
                 self.contacts[contact.name][5] = contact.notes
-            elif confirm == "n":
+            else:
                 print("Note was not changed.")
         else:
             raise Contact_not_found
