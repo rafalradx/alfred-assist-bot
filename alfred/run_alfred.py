@@ -125,13 +125,13 @@ After entering the command, you will be asked for additional information if need
         listen = listen_enterred.lower().strip()
         if listen in OPERATIONS_MAP:
             if listen == "add":
-                name = input("Enter name: ")
-                phone = input("Enter phone: ")
-                email = input("Enter email: ")
-                birthday = input("Enter birthday: ")
-                address = input("Enter address: ")
-                tag = input("Enter tag: ")
-                notes = input("Enter your notes: ")
+                name = input("Enter name: ").strip()
+                phone = input("Enter phone: ").strip()
+                email = input("Enter email: ").strip()
+                birthday = input("Enter birthday: ").strip()
+                address = input("Enter address: ").strip()
+                tag = input("Enter tag: ").strip()
+                notes = input("Enter your notes: ").strip()
                 OPERATIONS_MAP[listen](
                     name, phone, email, birthday, address, tag, notes
                 )
@@ -146,7 +146,7 @@ After entering the command, you will be asked for additional information if need
                 "delete tag",
                 "delete notes",
             ]:
-                name = input("Enter name: ")
+                name = input("Enter name: ").strip()
                 OPERATIONS_MAP[listen](name)
             elif listen == "upcoming birthdays":
                 keyword = input(
