@@ -1,4 +1,4 @@
-from setuptools import setup, find_namespace_packages
+from setuptools import setup
 
 setup(
     name="alfred",
@@ -9,6 +9,7 @@ setup(
     author_email="katarzyna.drajok@gmail.com; katarzyna.czempiel@gmail.com; rafal.radx@gmail.com; dawid.radzimski@gmail.com; adr.karwat@gmail.com",
     readme="README.md",
     license="MIT",
-    packages=find_namespace_packages(),
+    packages=["alfred"],
+    requires=["thefuzz"],
     entry_points={"console_scripts": ["alfred-run=alfred.run_alfred:main"]},
 )

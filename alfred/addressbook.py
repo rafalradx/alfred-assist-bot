@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import pickle
 from pathlib import Path
 from .record import Notes, Record, Name, Phone, Email, Birthday, Address, Tag
+import textwrap
 
 
 class Contact_not_found(Exception):
@@ -39,85 +40,109 @@ class AddressBook(UserDict):
     def read_from_file(self):
         if self.path.is_file() == False:
             self.contacts = {
-                "Anna Nowak": [
+                "Bruce Wayne": [
                     "600 123 456",
-                    "anowak@email.com",
+                    "bwayne@gothammail.com",
                     "1985-10-20",
-                    "Wroclaw, 50-234, ul. Trzebnicka 23/4",
-                    "Okulista",
-                    "Przyjmuje od 8 do 16",
+                    "174 Batman Street, Gotham City",
+                    "superhero, Batman, billionaire",
+                    "Bruce Wayne is the billionaire playboy philanthropist who, after witnessing his parents' murder, dedicates his life to fighting crime as the masked vigilante Batman, using his wealth and intellect to protect Gotham City.",
                 ],
-                "Piotr Wiśniewski": [
+                "Jim Gordon": [
                     "512 987 654",
-                    "pwiśniewski@email.com",
+                    "jgordon@batmail.com",
                     "1992-03-07",
-                    "Warszawa, 00-001, ul. Kwiatowa 5/3",
-                    "Mechanik",
-                    "",
+                    "842 Jim Gordon Street, Gotham City",
+                    "Police, justice",
+                    "Commissioner James Gordon is the steadfast and honest head of the Gotham City Police Department, working tirelessly to maintain justice in a city plagued by crime and corruption.",
                 ],
-                "Magdalena Kowalczyk": [
+                "Two-face": [
                     "665 111 222",
-                    "mkowalczyk@email.com",
+                    "two-face@darkknightmail.com",
                     "1988-07-12",
-                    "Kraków, 30-300, Aleja Słoneczna 7B",
-                    "Kwiaciarnia",
-                    "Piekne maja tulipany",
+                    "933 Two-Face Street, Gotham City",
+                    "attorney, villain",
+                    "Former District Attorney Harvey Dent becomes Two-Face after a tragic accident, transforming into a split-personality criminal obsessed with duality, randomness, and making life-altering decisions with the flip of a coin.",
                 ],
-                "Kamil Lewandowski": [
+                "Alfred Pennyworth": [
                     "700 222 333",
-                    "klewandowski@email.com",
+                    "apennyworth@gothammail.com",
                     "1995-01-30",
-                    "Gdańsk, 80-800, ul. Dębowa 22/8",
-                    "Fryzjer",
-                    "Dobre ceny",
+                    "Wayne's Manor 1, Gotham City",
+                    "butler, assistant",
+                    "Alfred Pennyworth is Bruce Wayne's loyal butler and confidant, providing emotional support, guidance, and practical assistance to Batman in his quest to save Gotham.",
                 ],
-                "Aleksandra Wójcik": [
+                "Batman": [
                     "510 333 444",
-                    "awójcik@email.com",
+                    "batman@batmail.com",
                     "1983-12-04",
-                    "Łódź, 90-090, Rondo Róży 3",
-                    "Praca",
-                    "Wspolpracownik",
+                    "379 Batman Street, Gotham City",
+                    "superhero",
+                    "Alter ego of Bruce Wayne",
                 ],
-                "Michał Kamiński": [
+                "Robin": [
                     "730 444 555",
-                    "mkamiński@email.com",
+                    "robin@batmail.com",
                     "1997-09-18",
-                    "Lublin, 20-200, ul. Leśna 15A",
-                    "Koszykowka",
-                    "Kumpel z podworka",
+                    "380 Robin Street, Gotham City",
+                    "sidekick, hero",
+                    "Robin, often a young ward or partner to Batman, joins the Dark Knight in his crime-fighting efforts, adding youthful energy and acrobatic skills to the dynamic duo.",
                 ],
-                "Karolina Jankowska": [
+                "Catwoman": [
                     "602 555 666",
-                    "kjankowska@email.com",
+                    "catwoman@batmail.com",
                     "1991-06-25",
-                    "Poznań, 60-600, Plac Morski 4/6",
-                    "Praca",
-                    "Manager",
+                    "996 Catwoman Street, Gotham City",
+                    "superhero, cats",
+                    "Selina Kyle, aka Catwoman, is a skilled cat burglar with a complex moral code, often walking the line between criminal and hero as she navigates her own path in Gotham City.",
                 ],
-                "Tomasz Zając": [
+                "Joker": [
                     "516 666 777",
-                    "tzając@email.com",
+                    "joker@gothammail.com",
                     "1980-04-09",
-                    "Olsztyn, 10-100, Aleja Zielona 12",
-                    "Szkola",
-                    "Nauczyciel od matematyki dziecka",
+                    "587 Joker Street, Gotham City",
+                    "supervillain, chaos, anarchy",
+                    "The Joker is an anarchic and unpredictable criminal mastermind, known for his sadistic sense of humor and obsession with creating chaos in Gotham, making him Batman's most iconic adversary.",
                 ],
-                "Natalia Szymańska": [
+                "Harley Quinn": [
                     "660 777 888",
-                    "nszymańska@email.com",
+                    "hquinn@darkknightmail.com",
                     "1994-11-19",
-                    "Katowice, 40-400, ul. Słowackiego 9/2",
-                    "Dentysta",
-                    "Ciezko z terminami",
+                    "208 Harley Quinn Street, Gotham City",
+                    "villain",
+                    "Formerly a psychiatrist named Dr. Harleen Quinzel, Harley Quinn becomes the Joker's devoted and unpredictable partner in crime, bringing her own brand of madness to the streets of Gotham.",
                 ],
-                "Marcin Dąbrowski": [
+                "Penguin": [
                     "780 888 999",
-                    "mdąbrowski@email.com",
+                    "penguin@batmail.com",
                     "1987-08-03",
-                    "Szczecin, 70-700, Skwer Nadbrzeżny 18",
-                    "Szkola",
-                    "Wychowawca dziecka",
+                    "735 Penguin Street, Gotham City",
+                    "villain",
+                    "Oswald Cobblepot, aka the Penguin, is a cunning and stylish criminal mastermind with a penchant for bird-related gadgets and a desire for wealth and power in the criminal underworld of Gotham City.",
+                ],
+                "Ra's al Ghul": [
+                    "780 888 999",
+                    "rasalghul@assassin.com",
+                    "1977-08-03",
+                    "Gotham City, Lazarus Mountain, Nanga Parbat Cave",
+                    "supervillain",
+                    "Ra's al Ghul, a centuries-old and enigmatic mastermind, is the leader of the League of Assassins. His mission, fueled by a belief in achieving global balance through extreme measures, brings him into frequent conflict with Batman, whom he views as a potential heir to his legacy.",
+                ],
+                "Poison Ivy": [
+                    "665 111 222",
+                    "poison_ivy@villain.com",
+                    "1980-02-12",
+                    "790 Poison Ivy Street, Gotham City",
+                    "villain, flowers, ivy",
+                    "Dr. Pamela Isley, known as Poison Ivy, is an eco-terrorist with a deadly touch, wielding control over plants and using her botanical prowess to defend the environment while often clashing with Gotham's heroes, particularly Batman.",
+                ],
+                "Batgirl": [
+                    "600 123 456",
+                    "batgirl@wayneenterprises.com",
+                    "1995-05-26",
+                    "394 Batgirl Street, Gotham City",
+                    "superheroin, bat",
+                    "Batgirl, alter ego of characters like Barbara Gordon, is a highly skilled crime-fighter and ally to Batman. Whether as a tech-savvy vigilante or as Commissioner Gordon's daughter, Batgirl plays a crucial role in Gotham's ongoing battle against crime.",
                 ],
             }
         else:
@@ -187,12 +212,15 @@ class AddressBook(UserDict):
                 )
             )
             print(
-                "{:^20}|{:^40}".format(
-                    "Tag", self.check_value(self.contacts[name][4]))
+                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
             )
+            print("{:^60}".format("-" * 60))
+            # print(f"Notes: {self.check_value(self.contacts[name][5]):{60}}")
             print(
-                "{:^20}|{:^40}".format(
-                    "Notes", self.check_value(self.contacts[name][5])
+                "\n".join(
+                    textwrap.wrap(
+                        f"Notes: {self.check_value(self.contacts[name][5])}", width=60
+                    )
                 )
             )
             print("{:^60}".format("-" * 60))
@@ -209,8 +237,7 @@ class AddressBook(UserDict):
         )
         print("{:^150}".format("-" * 150))
         contact_counter = 0
-        contacts_sorted = dict(
-            sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in key.lower()
@@ -235,24 +262,30 @@ class AddressBook(UserDict):
 
     @input_error
     def func_search_notes(self, keyword):
-        print("{:^100}".format("-" * 100))
-        print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
-        print("{:^100}".format("-" * 100))
+        print("{:^70}".format("-" * 70))
+        # print("{:^20}|{:^40}|{:^50}".format("Name", "Tag", "Notes"))
+        print("{:^20}|{:^40}".format("Name", "Tag"))
+        print("{:^70}".format("-" * 70))
         contact_counter = 0
-        contacts_sorted = dict(
-            sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         for key, value in contacts_sorted.items():
             if (
                 keyword.lower() in value[4].lower()
                 or keyword.lower() in value[5].lower()
             ):
+                print("{:^20}|{:^40}".format(key, self.check_value(value[4])))
+                print("{:^70}".format("-" * 70))
                 print(
-                    "{:^20}|{:^30}|{:^50}".format(
-                        key,
-                        self.check_value(value[4]),
-                        self.check_value(value[5]),
+                    "\n".join(
+                        textwrap.wrap(
+                            f"Notes: {self.check_value(value[5])}",
+                            width=70,
+                        )
                     )
                 )
+
+                print("{:^70}".format("=" * 70))
+
                 contact_counter += 1
         if contact_counter == 0:
             raise Contact_not_found
@@ -269,8 +302,7 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^150}".format("-" * 150))
-            contacts_sorted = dict(
-                sorted(self.contacts.items(), key=lambda x: x[0]))
+            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
                 print(
                     "{:^30}|{:^20}|{:^30}|{:^20}|{:^50}".format(
@@ -290,8 +322,7 @@ class AddressBook(UserDict):
             print("{:^100}".format("-" * 100))
             print("{:^20}|{:^30}|{:^50}".format("Name", "Tag", "Notes"))
             print("{:^100}".format("-" * 100))
-            contacts_sorted = dict(
-                sorted(self.contacts.items(), key=lambda x: x[0]))
+            contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
             for name, contact in contacts_sorted.items():
                 print(
                     "{:^20}|{:^30}|{:^50}".format(
@@ -307,13 +338,13 @@ class AddressBook(UserDict):
             date = datetime.strptime(date_str, "%d %B (%A)")
             current_month = datetime.now().month
             return (date.month - current_month) % 12
+
         today = datetime.now()
         formatted_date = today.strftime("%d %B %Y")
         days = int(days_str)
         last_day = today + timedelta(days=days)
         formatted_last_day = last_day.strftime("%d %B %Y")
-        print(
-            f"\nChecking period ({formatted_date} - {formatted_last_day}).\n")
+        print(f"\nChecking period ({formatted_date} - {formatted_last_day}).\n")
 
         birthdays_list = {}
         today_birthday = {}
@@ -369,15 +400,16 @@ class AddressBook(UserDict):
                 )
             )
             print("{:^120}".format("-" * 120))
-            for day, users in sorted(birthdays_list.items(), key=lambda x: month_sort_key(x[0])):
+            for day, users in sorted(
+                birthdays_list.items(), key=lambda x: month_sort_key(x[0])
+            ):
                 for user_info in users:
                     print("{:^30}|{:^30}|{:^30}|{:^30}".format(day, *user_info))
                     print("-" * 120)
 
     @input_error
     def func_show(self, number_of_contacts):
-        contacts_sorted = dict(
-            sorted(self.contacts.items(), key=lambda x: x[0]))
+        contacts_sorted = dict(sorted(self.contacts.items(), key=lambda x: x[0]))
         iterator = iter(contacts_sorted.items())
         len_of_dictionary = len(list(contacts_sorted.keys()))
         self.counter = 0
@@ -470,8 +502,7 @@ class AddressBook(UserDict):
                 )
             )
             print(
-                "{:^20}|{:^40}".format(
-                    "Tag", self.check_value(self.contacts[name][4]))
+                "{:^20}|{:^40}".format("Tag", self.check_value(self.contacts[name][4]))
             )
             print(
                 "{:^20}|{:^40}".format(
@@ -658,8 +689,7 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current tag of {name}:\n {self.contacts[name][4]}")
-            confirm = input(
-                f"If you still want to edit it, please write (y/n):")
+            confirm = input(f"If you still want to edit it, please write (y/n):")
             if confirm in ["y", "Y", "Yes", "yes", "True"]:
                 contact.edit_tag(Tag(new_tag)._value)
                 self.contacts[contact.name][4] = contact.tag
@@ -698,8 +728,7 @@ class AddressBook(UserDict):
                 self.contacts[name][5],
             )
             print(f"Current notes of {name}:\n {self.contacts[name][5]}")
-            confirm = input(
-                f"If you still want to edit it, please write (y/n):")
+            confirm = input(f"If you still want to edit it, please write (y/n):")
             if confirm in ["y", "Y", "Yes", "yes", "True"]:
                 contact.edit_notes(Notes(new_notes)._value)
                 self.contacts[contact.name][5] = contact.notes
@@ -727,7 +756,8 @@ class AddressBook(UserDict):
 
     @input_error
     def func_exit(self):
-        print("""
+        print(
+            """
                                            ..::::------:::..                                           
                                  .:-=+*#%@@@@@@@@@@@@@@@@@@@@%##*+=:.                                  
                             :-+#%@@@@@@@@@@@@%%##******##%%@@@@@@@@@@@#*=:                             
@@ -766,5 +796,6 @@ class AddressBook(UserDict):
                             .-+*%@@@@@@@@@@@@%%%#######%%%@@@@@@@@@@@%#+-:                             
                                   :-=+*#%%@@@@@@@@@@@@@@@@@@%%#*+=-:.                                  
                                            ...::------:::.                      
-""")
+"""
+        )
         exit()

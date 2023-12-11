@@ -151,34 +151,34 @@ After entering the command, you will be asked for additional information if need
             elif listen == "upcoming birthdays":
                 keyword = input(
                     "Which time frame from today would you like to check? Please input the number of days from now: "
-                )
+                ).strip()
                 OPERATIONS_MAP[listen](keyword)
             elif listen in ["search", "search notes"]:
-                keyword = input("Enter keyword: ")
+                keyword = input("Enter keyword: ").strip()
                 OPERATIONS_MAP[listen](keyword)
             elif listen == "edit phone":
-                name = input("Enter name of the contact to edit phone: ")
-                new_phone = input("Enter new phone number: ")
+                name = input("Enter name of the contact to edit phone: ").strip()
+                new_phone = input("Enter new phone number: ").strip()
                 OPERATIONS_MAP[listen](name, new_phone)
             elif listen == "edit email":
-                name = input("Enter name of the contact to edit email: ")
-                new_email = input("Enter new email: ")
+                name = input("Enter name of the contact to edit email: ").strip()
+                new_email = input("Enter new email: ").strip()
                 OPERATIONS_MAP[listen](name, new_email)
             elif listen == "edit birthday":
-                name = input("Enter name of the contact to edit birthday: ")
-                new_birthday = input("Enter new birthday: ")
+                name = input("Enter name of the contact to edit birthday: ").strip()
+                new_birthday = input("Enter new birthday: ").strip()
                 OPERATIONS_MAP[listen](name, new_birthday)
             elif listen == "edit address":
-                name = input("Enter name of the contact to edit address: ")
-                new_address = input("Enter new address: ")
+                name = input("Enter name of the contact to edit address: ").strip()
+                new_address = input("Enter new address: ").strip()
                 OPERATIONS_MAP[listen](name, new_address)
             elif listen == "edit tag":
-                name = input("Enter name of the contact to edit tag: ")
-                new_tag = input("Enter new tag: ")
+                name = input("Enter name of the contact to edit tag: ").strip()
+                new_tag = input("Enter new tag: ").strip()
                 OPERATIONS_MAP[listen](name, new_tag)
             elif listen == "edit notes":
-                name = input("Enter name of the contact to edit tag: ")
-                new_notes = input("Enter new notes: ")
+                name = input("Enter name of the contact to edit tag: ").strip()
+                new_notes = input("Enter new notes: ").strip()
                 OPERATIONS_MAP[listen](name, new_notes)
             elif listen == "show":
                 try:
